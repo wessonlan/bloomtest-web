@@ -6,6 +6,7 @@
           <el-input v-model="filterText" placeholder="关键字过滤" style="margin-bottom:20px; width: 150px" />
           <el-button type="primary" size="small" style="margin-left: 10px" @click="handleApiAdd">创建接口</el-button>
         </div>
+          <!--模块树-->
         <div class="custom-tree-container">
           <el-tree
             ref="tree"
@@ -176,11 +177,22 @@
           <el-form-item label="描述:">
             <el-input v-model="baseInfoForm.description" placeholder="" />
           </el-form-item>
+            <!--模块改造成级联选择器-->
           <el-form-item label="模块:">
-            <el-select v-model="baseInfoForm.moduleId" placeholder="" value="">
-              <el-option label="区域一" value="shanghai" />
-              <el-option label="区域二" value="beijing" />
-            </el-select>
+            <!--<el-select v-model="baseInfoForm.moduleId" placeholder="" value="">-->
+              <!--<el-option label="区域一" value="shanghai" />-->
+              <!--<el-option label="区域二" value="beijing" />-->
+            <!--</el-select>-->
+              <el-cascader
+                      :show-all-levels="false"
+                      filterable
+                      placeholder="选择模块"
+                      clearable
+                      v-model="baseInfoForm.moduleId"
+                      :options="currentModuleList"
+                      :props="{ expandTrigger: 'hover', checkStrictly: true }"
+                      @change="handleChange">
+              </el-cascader>
           </el-form-item>
         </el-form>
       </div>
@@ -297,6 +309,8 @@ export default {
   components: { JsonViewer, vueJsonEditor },
   data() {
     return {
+      currentModuleList: [],
+      selectedModuleValue: [],
       apiDefinitionDialogStatus: 'create',
       saveApiRequest: {
         id: '',
@@ -345,7 +359,7 @@ export default {
         id: '',
         name: '',
         description: '',
-        moduleId: 0
+        moduleId: ''
       },
       listLoading: true,
       filterText: '',
@@ -380,6 +394,11 @@ export default {
     this.getAllProject()
   },
   methods: {
+    handleChange(value) {
+      console.log(value);
+      console.log(this.baseInfoForm.moduleId)
+      // console.log(this.baseInfoForm.moduleId[this.baseInfoForm.moduleId.length - 1]);
+    },
     onJsonChange(value) {
       console.log('value:', value)
     },
@@ -464,7 +483,11 @@ export default {
       this.saveApiRequest.projectId = this.value
       this.saveApiRequest.name = this.baseInfoForm.name
       this.saveApiRequest.description = this.baseInfoForm.description
-      this.saveApiRequest.moduleId = 0
+      if (this.apiDefinitionDialogStatus === 'create') {
+        this.saveApiRequest.moduleId = this.baseInfoForm.moduleId[this.baseInfoForm.moduleId.length - 1]
+      } else {
+        this.saveApiRequest.moduleId = this.baseInfoForm.moduleId
+      }
       this.saveApiRequest.method = this.apiRequestInfoForm.method
       this.saveApiRequest.host = this.apiRequestInfoForm.host
       this.saveApiRequest.path = this.apiRequestInfoForm.path
@@ -485,7 +508,8 @@ export default {
       this.saveApiRequest.projectId = this.value
       this.saveApiRequest.name = ''
       this.saveApiRequest.description = ''
-      this.saveApiRequest.moduleId = 0
+      this.saveApiRequest.moduleId = ''
+
       this.saveApiRequest.method = ''
       this.saveApiRequest.host = ''
       this.saveApiRequest.path = ''
@@ -546,6 +570,8 @@ export default {
         this.baseInfoForm.name = response.data.name
         this.baseInfoForm.description = response.data.description
         this.baseInfoForm.moduleId = response.data.moduleId
+        console.log("点完编辑后，此时表单里的 moduleId")
+        console.log(this.baseInfoForm.moduleId)
         this.apiRequestInfoForm.method = response.data.method
         this.apiRequestInfoForm.host = response.data.host
         this.apiRequestInfoForm.path = response.data.path
@@ -674,7 +700,8 @@ export default {
     queryModuleList() {
       getModuleList(this.value).then(response => {
         this.data = response.data
-        // console.log(this.data)
+        this.currentModuleList = response.data
+        console.log(this.currentModuleList)
       })
     },
     filterNode(value, data) {
