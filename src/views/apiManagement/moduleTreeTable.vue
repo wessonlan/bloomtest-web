@@ -395,8 +395,6 @@ export default {
   },
   methods: {
     handleChange(value) {
-      console.log(value);
-      console.log(this.baseInfoForm.moduleId)
       // console.log(this.baseInfoForm.moduleId[this.baseInfoForm.moduleId.length - 1]);
     },
     onJsonChange(value) {
@@ -486,7 +484,12 @@ export default {
       if (this.apiDefinitionDialogStatus === 'create') {
         this.saveApiRequest.moduleId = this.baseInfoForm.moduleId[this.baseInfoForm.moduleId.length - 1]
       } else {
-        this.saveApiRequest.moduleId = this.baseInfoForm.moduleId
+        // 当是编辑页面，判断传进来的是否是数组，是的话 取最后一个赋值给 saveApiRequest.moduleId
+        if (typeof(this.baseInfoForm.moduleId) === 'object') {
+          this.saveApiRequest.moduleId = this.baseInfoForm.moduleId[this.baseInfoForm.moduleId.length - 1]
+        } else {
+          this.saveApiRequest.moduleId = this.baseInfoForm.moduleId
+        }
       }
       this.saveApiRequest.method = this.apiRequestInfoForm.method
       this.saveApiRequest.host = this.apiRequestInfoForm.host
