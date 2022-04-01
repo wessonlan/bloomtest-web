@@ -23,28 +23,18 @@ import { getModuleList } from '@/api/apiModule'
 
 export default {
   name: 'ApiProjectFilter',
-  props: {
-    projectList: {
-      type: Array
-    }
-  },
+  props: ['projectList'],
   data() {
     return {
       projectValue: '',
       moduleListData: []
     }
   },
-  created() {
-
-  },
-  mounted() {
-
-  },
   methods: {
     queryModuleList() {
       getModuleList(this.projectValue).then(response => {
         this.moduleListData = response.data
-        // this.currentModuleList = response.data
+        this.$emit('getModuleList', response.data)
       })
     }
     // initProjectApi() {
@@ -61,7 +51,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

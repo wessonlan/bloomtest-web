@@ -73,7 +73,14 @@ export const constantRoutes = [
         name: 'apiManagement',
         component: () => import('@/views/apiManagement/moduleTreeTable'),
         meta: { title: '接口定义', icon: 'tree' }
+      },
+      {
+        path: 'apiManagementNew',
+        name: 'apiManagementNew',
+        component: () => import('@/views/apiManagement/definition/ApiDefinitionBase'),
+        meta: { title: '接口定义-new', icon: 'tree' }
       }
+
     ]
   },
 
