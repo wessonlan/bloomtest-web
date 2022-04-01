@@ -6,7 +6,6 @@
         <ModuleTree />
       </div>
     </el-aside>
-
     <el-container>
       <el-header style="text-align: left; font-size: 12px; height: 40px">
         <!--项目选择-->
@@ -20,6 +19,7 @@
       </el-header>
       <el-main>
         <!--接口列表-->
+        <ApiListTable />
       </el-main>
     </el-container>
 
@@ -39,8 +39,9 @@
 </template>
 
 <script>
-import ModuleTree from './ModuleTree'
-import ApiProjectFilter from './ApiProjectFilter'
+import ModuleTree from '@/views/apiManagement/definition/ModuleTree'
+import ApiProjectFilter from '@/views/apiManagement/definition/ApiProjectFilter'
+import ApiListTable from '@/views/apiManagement/definition/ApiListTable'
 
 import { getProjectAll } from '../../../api/projectManagement'
 
@@ -49,7 +50,7 @@ export default {
   name: 'ApiDefinitionBase',
   // 注册组件
   // components: { JsonViewer, vueJsonEditor },
-  components: { ModuleTree, ApiProjectFilter },
+  components: { ModuleTree, ApiProjectFilter, ApiListTable },
   data() {
     return {
       projectAllList: []

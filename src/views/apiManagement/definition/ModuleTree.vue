@@ -47,8 +47,8 @@
 </template>
 
 <script>
-import { getApiListByModuleId } from '../../../api/apiDefinition'
-import { deleteNode } from '../../../api/apiModule'
+import { getApiListByModuleId } from '@/api/apiDefinition'
+import { deleteNode } from '@/api/apiModule'
 
 export default {
   name: 'ModuleTree',
@@ -108,17 +108,12 @@ export default {
         this.queryModuleList()
       })
     },
+    // 点击模块树的节点，查询对应模块id下的 api 列表
     getApi(data) {
-      console.log('当前树的this，', this)
-      this.listLoading = true
-      this.currentNode = data
-      getApiListByModuleId(this.currentNode.projectId, this.currentNode.id, this.currentPage, this.size)
+      getApiListByModuleId(data.projectId, data.id, 1, 5)
         .then(response => {
-          this.tableData = response.data.records
-          this.currentPage = response.data.current
-          this.size = response.data.size
-          this.total = response.data.total
-          this.listLoading = false
+          // 把接口返回的数据，传到列表组件里
+          this.$bus.$emit('getModuleApiList', response.data, data)
         })
     }
   }
