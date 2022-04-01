@@ -43,7 +43,7 @@ import ModuleTree from '@/views/apiManagement/definition/ModuleTree'
 import ApiProjectFilter from '@/views/apiManagement/definition/ApiProjectFilter'
 import ApiListTable from '@/views/apiManagement/definition/ApiListTable'
 
-import { getProjectAll } from '../../../api/projectManagement'
+import { getProjectAll } from '@/api/projectManagement'
 
 export default {
   // 组件名称

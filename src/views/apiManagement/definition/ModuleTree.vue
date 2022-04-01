@@ -43,17 +43,23 @@
         </span>
       </el-tree>
     </div>
+    <!--模块树编辑对话框组件-->
+    <TreeNodeDialog
+      :module-dialog-state="moduleDialogState"
+    />
   </div>
 </template>
 
 <script>
+import TreeNodeDialog from '@/views/apiManagement/definition/TreeNodeDialog'
+
 import { getApiListByModuleId } from '@/api/apiDefinition'
 import { deleteNode } from '@/api/apiModule'
 
 export default {
   name: 'ModuleTree',
   // 注册组件
-  // components: { JsonViewer, vueJsonEditor },
+  components: { TreeNodeDialog },
   data() {
     return {
       filterText: '',
@@ -61,6 +67,11 @@ export default {
       defaultProps: {
         children: 'children',
         label: 'label'
+      },
+      currentNode: {},
+      moduleDialogState: {
+        dialogFormVisible: false,
+        dialogStatus: ''
       }
     }
   },
@@ -80,22 +91,23 @@ export default {
       return data.label.indexOf(value) !== -1
     },
     append(data) {
-      this.dialogFormVisible = true
-      // 把对话框的值赋给data的name字段传给后端
+      this.moduleDialogState.dialogFormVisible = true
+      // 把对话框的值赋给 data的 name字段传给后端
       this.currentNode = data
-      // console.log('传入的node：' + JSON.stringify(data))
-      this.dialogStatus = 'create'
+      // console.log('传入的 node：' + JSON.stringify(data))
+      this.moduleDialogState.dialogStatus = 'create'
+      // console.log('@@!!!', this.moduleDialogState)
     },
     edit(data) {
       // console.log(data)
       // 打开对话框
-      this.dialogFormVisible = true
+      this.moduleDialogState.dialogFormVisible = true
       // 把 data 赋给 currentNode，用于后面其他方法的请求
       this.currentNode = data
       // 把 name 赋值给 this.form.nodeName 用于外显
       this.form.nodeName = data.name
       // 点击保存的时候，判断后调用 handleNodeUpdate 方法
-      this.dialogStatus = 'update'
+      this.moduleDialogState.dialogStatus = 'update'
     },
     remove(data) {
       deleteNode(data.id).then(response => {
