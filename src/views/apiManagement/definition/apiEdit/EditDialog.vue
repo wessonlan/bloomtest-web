@@ -13,13 +13,13 @@
 </template>
 
 <script>
-import BasicInfo from '@/views/apiManagement/definition/apiEdit/BasicInfor'
+import BasicInfo from '@/views/apiManagement/definition/apiEdit/BasicInfo'
+
 export default {
   name: 'EditDialog',
   components: { BasicInfo },
   data() {
     return {
-
     }
   },
   computed: {
@@ -31,6 +31,8 @@ export default {
         this.$store.state.apiDefinition.createApiRelative.apiEditDialogVisible = value
       }
     }
+  },
+  mounted() {
   },
   methods: {
     test() {

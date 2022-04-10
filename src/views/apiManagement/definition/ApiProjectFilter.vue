@@ -26,15 +26,14 @@ export default {
   props: ['projectList'],
   data() {
     return {
-      projectValue: '',
-      moduleListData: []
+      projectValue: ''
     }
   },
   methods: {
     queryModuleList() {
       getModuleList(this.projectValue).then(response => {
-        this.moduleListData = response.data
         this.$emit('getModuleList', response.data)
+        this.$store.commit('apiDefinition/GET_MODULE_LIST', response.data)
       })
     }
     // initProjectApi() {
