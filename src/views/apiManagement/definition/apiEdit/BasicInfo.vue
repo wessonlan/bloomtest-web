@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'ApiDefinitionDialog'
+  name: 'BasicInfo'
 }
 </script>
 

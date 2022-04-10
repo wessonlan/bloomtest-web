@@ -23,18 +23,8 @@
       </el-main>
     </el-container>
 
-    <!-- 节点名称编辑对话框 -->
-
     <!--接口定义对话框-->
-    <!--基础信息-->
-    <!--<el-divider content-position="left">基础信息</el-divider>-->
-
-    <!--请求参数表单-->
-    <!--<el-divider content-position="left">请求参数</el-divider>-->
-
-    <!--响应内容-->
-    <!--<el-divider content-position="left">响应内容</el-divider>-->
-
+    <EditDialog />
   </el-container>
 </template>
 
@@ -42,6 +32,7 @@
 import ModuleTree from '@/views/apiManagement/definition/ModuleTree'
 import ApiProjectFilter from '@/views/apiManagement/definition/ApiProjectFilter'
 import ApiListTable from '@/views/apiManagement/definition/ApiListTable'
+import EditDialog from '@/views/apiManagement/definition/apiEdit/EditDialog'
 
 import { getProjectAll } from '@/api/projectManagement'
 
@@ -50,7 +41,7 @@ export default {
   name: 'ApiDefinitionBase',
   // 注册组件
   // components: { JsonViewer, vueJsonEditor },
-  components: { ModuleTree, ApiProjectFilter, ApiListTable },
+  components: { EditDialog, ModuleTree, ApiProjectFilter, ApiListTable },
   data() {
     return {
       projectAllList: []

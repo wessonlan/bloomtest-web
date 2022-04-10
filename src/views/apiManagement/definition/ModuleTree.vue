@@ -4,7 +4,7 @@
     <div>
       <!--创建接口按钮-->
       <el-input v-model="filterText" placeholder="关键字过滤" style="margin-bottom:20px; width: 150px" />
-      <!--<el-button type="primary" size="small" style="margin-left: 10px" @click="handleApiAdd">创建接口</el-button>-->
+      <el-button type="primary" size="small" style="margin-left: 10px" @click="handleApiAdd">创建接口</el-button>
     </div>
     <!--接口定义-模块树-->
     <div class="custom-tree-container">
@@ -170,6 +170,9 @@ export default {
         // 刷新树列表
         this.queryModuleList(this.currentNode.projectId)
       })
+    },
+    handleApiAdd() {
+      this.$store.commit('apiDefinition/CHANGE_DIALOG', 'create')
     }
   }
 }
