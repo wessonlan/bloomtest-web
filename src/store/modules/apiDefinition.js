@@ -5,6 +5,20 @@ const state = {
   },
   moduleTreeRelative: {
     moduleList: []
+  },
+  saveApiRequest: {
+    id: '',
+    name: '',
+    description: '',
+    moduleIds: '',
+    projectId: '',
+    host: '',
+    path: '',
+    method: '',
+    apiHeaders: [],
+    requestInfo: [],
+    responseInfo: {},
+    requestType: null
   }
 }
 

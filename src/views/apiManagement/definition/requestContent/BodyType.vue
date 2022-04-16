@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'paramType'
+  name: 'BodyType'
 }
 </script>
 

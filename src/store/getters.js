@@ -5,6 +5,7 @@ const getters = {
   avatar: state => state.user.avatar,
   name: state => state.user.name,
   createApiRelative: state => state.apiDefinition.createApiRelative,
-  moduleTreeRelative: state => state.apiDefinition.moduleTreeRelative
+  moduleTreeRelative: state => state.apiDefinition.moduleTreeRelative,
+  saveApiRequest: state => state.apiDefinition.saveApiRequest
 }
 export default getters

@@ -242,6 +242,7 @@
                 </el-form-item>
               </el-form>
             </el-tab-pane>
+
             <el-tab-pane label="QUERY参数" name="queryParams">
               <el-form ref="queryDynamicForm" :model="queryDynamicForm" label-width="100px" class="demo-dynamic">
                 <!--QUERY参数动态部分-->

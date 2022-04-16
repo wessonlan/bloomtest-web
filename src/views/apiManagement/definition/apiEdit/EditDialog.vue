@@ -6,20 +6,37 @@
   >
     <!--基础信息组件-->
     <BasicInfo />
+    <!--请求参数组件-->
+    <RequestInfoBase />
 
-    <!--测试用按钮-->
+    测试用按钮
     <el-button type="primary" size="small" style="margin-left: 10px" @click="test">test</el-button>
   </el-dialog>
 </template>
 
 <script>
 import BasicInfo from '@/views/apiManagement/definition/apiEdit/BasicInfo'
+import RequestInfoBase from '@/views/apiManagement/definition/apiEdit/RequestInfoBase'
 
 export default {
   name: 'EditDialog',
-  components: { BasicInfo },
+  components: { RequestInfoBase, BasicInfo },
   data() {
     return {
+      // saveApiRequest: {
+      //   id: '',
+      //   name: '',
+      //   description: '',
+      //   moduleId: '',
+      //   projectId: '',
+      //   host: '',
+      //   path: '',
+      //   method: '',
+      //   apiHeader: '',
+      //   request: '',
+      //   response: '',
+      //   requestType: ''
+      // }
     }
   },
   computed: {
@@ -36,8 +53,11 @@ export default {
   },
   methods: {
     test() {
-      console.log('test111')
-    }
+      console.log('state中的请求数据', this.$store.state.apiDefinition.saveApiRequest)
+    },
+    apiTestRun() {},
+    saveApi() {},
+    updateApi() {}
   }
 }
 </script>
