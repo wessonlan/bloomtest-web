@@ -10,13 +10,17 @@ const state = {
     id: '',
     name: '',
     description: '',
-    moduleIds: '',
+    moduleId: '',
     projectId: '',
     host: '',
     path: '',
     method: '',
-    apiHeaders: [],
-    requestInfo: [],
+    headersKeyValue: '',
+    reqParamInfo: {
+      paramKeyValue: '',
+      restKeyValue: '',
+      body: ''
+    },
     responseInfo: {},
     requestType: null
   }

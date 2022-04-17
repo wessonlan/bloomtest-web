@@ -13,7 +13,7 @@
         <!--模块-级联选择器-->
         <el-form-item label="模块:">
           <el-cascader
-            v-model="apiInfo.moduleIds"
+            v-model="apiInfo.moduleId"
             :show-all-levels="false"
             filterable
             placeholder="选择模块"
@@ -49,6 +49,8 @@
 </template>
 
 <script>
+import { saveApiDefinition, runTestApi } from '@/api/apiDefinition'
+
 export default {
   name: 'BasicInfo',
   data() {
@@ -60,22 +62,60 @@ export default {
     createOrUpdateDialog() {
       return this.$store.state.apiDefinition.createApiRelative.apiDefinitionDialogStatus
     },
+    editDialogVisible: {
+      get() {
+        return this.$store.state.apiDefinition.createApiRelative.apiEditDialogVisible
+      },
+      set(boolean) {
+        this.$store.state.apiDefinition.createApiRelative.apiEditDialogVisible = boolean
+      }
+    },
     moduleTree() {
       return this.$store.state.apiDefinition.moduleTreeRelative.moduleList
     },
     apiInfo() {
       return this.$store.state.apiDefinition.saveApiRequest
+    },
+    paramKeyValue() {
+      return this.apiInfo.reqParamInfo.paramKeyValue
+    },
+    restKeyValue() {
+      return this.apiInfo.reqParamInfo.restKeyValue
+    },
+    body() {
+      return this.apiInfo.reqParamInfo.body
     }
   },
   methods: {
     handleChange() {},
+    saveApi() {
+      console.log('当前createOrUpdateDialog的：', this.createOrUpdateDialog)
+      this.apiInfo.moduleId = this.apiInfo.moduleId[this.apiInfo.moduleId.length - 1]
+      this.apiInfo.reqParamInfo = JSON.stringify(this.apiInfo.reqParamInfo)
+      this.apiInfo.responseInfo = JSON.stringify(this.apiInfo.responseInfo)
+      saveApiDefinition(this.apiInfo).then(response => {
+        if (response.code === 20000) {
+          this.$message({
+            message: '新增成功',
+            type: 'success',
+            duration: 2000
+          })
+        }
+        this.editDialogVisible = false
+        // 重新刷新列表，全局事件总线
+        // this.initProjectApi()
+        // this.restSaveApiRequest()
+        // this.resetApiForm()
+      })
+    },
+    updateApi() {},
     apiTestRun() {
-      console.log('@@@@@', this.apiInfo)
-    }
+      console.log('发送请求@@@', this.apiInfo)
+      runTestApi()
+    },
+    // 根据已填写的请求参数，赋值vuex里 requestType 对应值：0：query, 1: rest，2：body
+    checkRequestType() {},
+    checkRequestNull() {}
   }
 }
 </script>
-
-<style scoped>
-
-</style>
