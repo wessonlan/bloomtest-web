@@ -29,7 +29,8 @@ const state = {
     id: '',
     projectId: ''
   },
-  currentProjectId: null
+  currentProjectId: null,
+  initProjectInfo: {}
 }
 
 const actions = {

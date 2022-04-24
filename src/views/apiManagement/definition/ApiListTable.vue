@@ -4,6 +4,7 @@
     <el-main style="padding-top: 10px;">
       <template>
         <el-table
+          v-loading="listLoading"
           :data="tableData"
           style="width: 100%"
         >
@@ -80,6 +81,7 @@ export default {
   name: 'ApiListTable',
   data() {
     return {
+      listLoading: false,
       tableData: [],
       currentPage: 1,
       size: 5,
@@ -126,6 +128,7 @@ export default {
   },
   methods: {
     getApiList(projectId, moduleId, currentPage, size) {
+      this.listLoading = true
       getApiListByModuleId(projectId, moduleId, currentPage, size)
         .then(response => {
           this.tableData = response.data.records
@@ -133,6 +136,7 @@ export default {
           this.size = response.data.size
           this.total = response.data.total
         })
+      this.listLoading = false
     }
   }
 }

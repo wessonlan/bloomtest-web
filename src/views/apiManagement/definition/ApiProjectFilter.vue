@@ -29,6 +29,24 @@ export default {
       projectValue: ''
     }
   },
+  computed: {
+    initProjectInfo() {
+      return this.$store.state.apiDefinition.initProjectInfo
+    }
+  },
+  watch: {
+    initProjectInfo: {
+      // 接口管理页面，初始化的时候选择一个默认项目查询树节点
+      handler() {
+        if (this.initProjectInfo !== {}) {
+          this.projectValue = this.initProjectInfo.id
+          this.queryModuleList()
+          // 全局事件总线，给ModuleTree组件，传过去一个值，表示需要初始化查询
+          this.$bus.$emit('needInitTree', true)
+        }
+      }
+    }
+  },
   methods: {
     queryModuleList() {
       // 把当前的项目id 放到 vuex中
@@ -40,17 +58,6 @@ export default {
         this.$store.commit('apiDefinition/GET_MODULE_LIST', response.data)
       })
     }
-    // initProjectApi() {
-    //   this.listLoading = true
-    //   getApiListByModuleId(this.value, 0, this.currentPage, this.size)
-    //     .then(response => {
-    //       this.tableData = response.data.records
-    //       this.currentPage = response.data.current
-    //       this.size = response.data.size
-    //       this.total = response.data.total
-    //       this.listLoading = false
-    //     })
-    // }
   }
 }
 </script>

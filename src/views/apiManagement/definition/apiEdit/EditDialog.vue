@@ -40,6 +40,8 @@ export default {
     }
   },
   mounted() {
+    // 初始化查询第一个项目下的tree，接着初始化查询该项目下的默认节点全部接口
+
   },
   methods: {
     test() {

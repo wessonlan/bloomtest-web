@@ -82,13 +82,56 @@ export default {
       form: {
         nodeName: ''
       },
-      formLabelWidth: '80px'
+      formLabelWidth: '80px',
+      needInitTree: false,
+      initModuleId: null
+    }
+  },
+  computed: {
+    initProjectInfo() {
+      return this.$store.state.apiDefinition.initProjectInfo
+    },
+    changedCurrentProjectId() {
+      return this.$store.state.apiDefinition.currentProjectId
+    }
+  },
+  watch: {
+    needInitTree: {
+      // 当监听到需要初始化，调用后端接口，请求列表数据
+      handler() {
+        getApiListByModuleId(this.initProjectInfo.id, 1, 1, 5)
+          .then(response => {
+            // 把接口返回的数据，传到列表组件里展示
+            this.$bus.$emit('getModuleApiList', response.data)
+          })
+      }
+    },
+    // 解决bug-当切换项目的时候，树列表变化，但是右侧接口列表没有更新-第一步
+    changedCurrentProjectId: {
+      handler() {
+        getModuleList(this.changedCurrentProjectId).then(response => {
+          this.initModuleId = response.data[0].id
+        })
+      }
+    },
+    initModuleId: {
+      // 解决bug-当切换项目的时候，树列表变化，但是右侧接口列表没有更新-第二步
+      handler() {
+        getApiListByModuleId(this.changedCurrentProjectId, this.initModuleId, 1, 5)
+          .then(response => {
+            // 把接口返回的数据，传到列表组件里展示
+            this.$bus.$emit('getModuleApiList', response.data)
+          })
+      }
     }
   },
   mounted() {
     // 全局事件总线-接收来自项目过滤组件传递来的数据
     this.$bus.$on('getModule', (data) => {
       this.data = data
+    })
+    this.$bus.$on('needInitTree', (boolean) => {
+      this.needInitTree = boolean
     })
   },
   beforeDestroy() {

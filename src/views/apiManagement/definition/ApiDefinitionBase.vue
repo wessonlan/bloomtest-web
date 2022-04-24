@@ -47,13 +47,15 @@ export default {
       projectAllList: []
     }
   },
-  created() {
+  mounted() {
     this.getAllProject()
   },
   methods: {
     getAllProject() {
       getProjectAll().then(response => {
         this.projectAllList = response.data
+        // 把第一个项目当做默认初始化查询的项目，放到vuex
+        this.$store.state.apiDefinition.initProjectInfo = this.projectAllList[0]
       })
     },
     getModuleList(val) {
