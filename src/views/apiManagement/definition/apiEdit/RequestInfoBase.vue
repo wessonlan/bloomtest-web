@@ -22,7 +22,7 @@
       </el-tab-pane>
       <el-tab-pane label="请求体" name="body">
         <vue-json-editor
-          v-model="$store.state.apiDefinition.saveApiRequest.reqParamInfo.body"
+          v-model="body"
           :mode="'code'"
         />
       </el-tab-pane>
@@ -52,6 +52,14 @@ export default {
     }
   },
   computed: {
+    body: {
+      get() {
+        return this.$store.state.apiDefinition.saveApiRequest.reqParamInfo.body
+      },
+      set(value) {
+        this.$store.state.apiDefinition.saveApiRequest.reqParamInfo.body = value
+      }
+    },
     paramInfo() {
       return this.$store.state.apiDefinition.saveApiRequest.reqParamInfo
     },
@@ -64,6 +72,18 @@ export default {
       }
     }
   },
+  watch: {
+    body: {
+      // 当body值变动进行判断，如果不为空，就把请求类型赋值为 2
+      handler() {
+        if (!this.paramInfo.body) {
+          this.$store.state.apiDefinition.saveApiRequest.requestType = 2
+        }
+      },
+      immediate: true,
+      deep: true
+    }
+  },
   methods: {
     handleClick() {
       // console.log('当前tabactiveName', this.activeName)
@@ -72,13 +92,12 @@ export default {
       // 收到子组件 ParamType 传来的数据，根据不同参数类型argType，赋值给 vuex里的state
       if (currentTabName === 'headers') {
         this.headerInfo = JSON.stringify(data.domains)
-        // console.log('header拿到的值', data)
       } else if (currentTabName === 'parameters') {
         this.paramInfo.paramKeyValue = JSON.stringify(data.domains)
-        // console.log('paramKeyValue拿到的值', data)
+        this.$store.state.apiDefinition.saveApiRequest.requestType = 0
       } else if (currentTabName === 'rest') {
         this.paramInfo.restKeyValue = JSON.stringify(data.domains)
-        // console.log('restKeyValue拿到的值', data)
+        this.$store.state.apiDefinition.saveApiRequest.requestType = 1
       }
     }
   }

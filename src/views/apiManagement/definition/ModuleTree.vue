@@ -126,6 +126,9 @@ export default {
     },
     // 点击模块树的节点，查询对应模块id下的 api 列表
     getApi(data) {
+      // 当前 node放到 vuex中
+      this.$store.state.apiDefinition.currentNode = { ...data }
+      // 调用后端接口查询 api
       getApiListByModuleId(data.projectId, data.id, 1, 5)
         .then(response => {
           // 把接口返回的数据，传到列表组件里

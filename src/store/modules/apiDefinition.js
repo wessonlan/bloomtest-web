@@ -23,7 +23,13 @@ const state = {
     },
     responseInfo: {},
     requestType: null
-  }
+  },
+  refreshApiList: false,
+  currentNode: {
+    id: '',
+    projectId: ''
+  },
+  currentProjectId: null
 }
 
 const actions = {
@@ -38,6 +44,26 @@ const mutations = {
   },
   GET_MODULE_LIST(state, value) {
     state.moduleTreeRelative.moduleList = value
+  },
+  INIT_SAVE_API_REQUEST(state, value) {
+    state.saveApiRequest = {
+      id: '',
+      name: '',
+      description: '',
+      moduleId: '',
+      projectId: '',
+      host: '',
+      path: '',
+      method: '',
+      headersKeyValue: '',
+      reqParamInfo: {
+        paramKeyValue: '',
+        restKeyValue: '',
+        body: ''
+      },
+      responseInfo: {},
+      requestType: null
+    }
   }
 }
 

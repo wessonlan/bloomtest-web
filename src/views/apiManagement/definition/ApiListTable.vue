@@ -87,6 +87,33 @@ export default {
       currentModule: {}
     }
   },
+  computed: {
+    needRefreshList() {
+      return this.$store.state.apiDefinition.refreshApiList
+    },
+    currentNodeInfo() {
+      return this.$store.state.apiDefinition.currentNode
+    },
+    currentProjectId() {
+      return this.$store.state.apiDefinition.currentProjectId
+    }
+  },
+  watch: {
+    needRefreshList: {
+      // 接口编辑页保持接口，处理保存后的自动刷新当前节点下的列表
+      handler() {
+        if (this.needRefreshList === true) {
+          if (this.currentNodeInfo.id !== '') {
+            this.getApiList(this.currentNodeInfo.projectId, this.currentNodeInfo.id, this.currentPage, this.size)
+          } else {
+            this.getApiList(this.currentProjectId, 1, this.currentPage, this.size)
+          }
+        }
+      },
+      immediate: true,
+      deep: true
+    }
+  },
   mounted() {
     // 全局事件总线-接收来自模块树组件传递来的API列表数据
     this.$bus.$on('getModuleApiList', (apiData, currentModuleData) => {
@@ -98,8 +125,8 @@ export default {
     })
   },
   methods: {
-    getApiList() {
-      getApiListByModuleId(this.currentModule.projectId, this.currentModule.id, this.currentPage, this.size)
+    getApiList(projectId, moduleId, currentPage, size) {
+      getApiListByModuleId(projectId, moduleId, currentPage, size)
         .then(response => {
           this.tableData = response.data.records
           this.currentPage = response.data.current

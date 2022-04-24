@@ -6,6 +6,8 @@ const getters = {
   name: state => state.user.name,
   createApiRelative: state => state.apiDefinition.createApiRelative,
   moduleTreeRelative: state => state.apiDefinition.moduleTreeRelative,
-  saveApiRequest: state => state.apiDefinition.saveApiRequest
+  saveApiRequest: state => state.apiDefinition.saveApiRequest,
+  refreshApiList: state => state.apiDefinition.refreshApiList,
+  currentNode: state => state.apiDefinition.currentNode
 }
 export default getters

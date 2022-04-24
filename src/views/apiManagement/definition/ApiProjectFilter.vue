@@ -31,6 +31,8 @@ export default {
   },
   methods: {
     queryModuleList() {
+      // 把当前的项目id 放到 vuex中
+      this.$store.state.apiDefinition.currentProjectId = this.projectValue
       getModuleList(this.projectValue).then(response => {
         // 当前的项目id 放到vuex中请求信息中去
         this.$store.state.apiDefinition.saveApiRequest.projectId = this.projectValue

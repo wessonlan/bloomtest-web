@@ -102,10 +102,13 @@ export default {
           })
         }
         this.editDialogVisible = false
-        // 重新刷新列表，全局事件总线
+        // 重新刷新列表，更新vuex里的 refreshApiList 字段 为true触发
+        this.$store.state.apiDefinition.refreshApiList = true
         // this.initProjectApi()
-        // this.restSaveApiRequest()
-        // this.resetApiForm()
+        // 初始化请求对象
+        this.$store.commit('apiDefinition/INIT_SAVE_API_REQUEST')
+        // 这里是解决上面的方法无法初始化 ParamType组件里的v-model
+        this.$bus.$emit('clear', true)
       })
     },
     updateApi() {},
