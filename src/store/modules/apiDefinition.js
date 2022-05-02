@@ -21,7 +21,7 @@ const state = {
       restKeyValue: '',
       body: ''
     },
-    responseInfo: {},
+    responseInfo: '',
     requestType: null
   },
   refreshApiList: false,
@@ -38,10 +38,12 @@ const actions = {
 
 const mutations = {
   CHANGE_DIALOG(state, value) {
-    if (value === 'create') {
-      state.createApiRelative.apiEditDialogVisible = true
-      state.createApiRelative.apiDefinitionDialogStatus = value
-    }
+    // if (value === 'create') {
+    //   state.createApiRelative.apiEditDialogVisible = true
+    //   state.createApiRelative.apiDefinitionDialogStatus = value
+    // }
+    state.createApiRelative.apiEditDialogVisible = true
+    state.createApiRelative.apiDefinitionDialogStatus = value
   },
   GET_MODULE_LIST(state, value) {
     state.moduleTreeRelative.moduleList = value
@@ -62,7 +64,7 @@ const mutations = {
         restKeyValue: '',
         body: ''
       },
-      responseInfo: {},
+      responseInfo: '',
       requestType: null
     }
   }

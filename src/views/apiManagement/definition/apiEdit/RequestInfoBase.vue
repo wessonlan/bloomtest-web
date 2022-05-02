@@ -76,7 +76,7 @@ export default {
     body: {
       // 当body值变动进行判断，如果不为空，就把请求类型赋值为 2
       handler() {
-        if (!this.paramInfo.body) {
+        if (this.paramInfo.body !== undefined) {
           this.$store.state.apiDefinition.saveApiRequest.requestType = 2
         }
       },

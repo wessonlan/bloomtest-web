@@ -24,12 +24,22 @@ export default {
   data() {
     return {
       dynamicForm: {
-        domains: [{
-          name: '',
-          value: '',
-          describe: ''
-        }]
+        domains: [
+          {
+            name: '',
+            value: '',
+            describe: ''
+          }
+        ]
       }
+    }
+  },
+  computed: {
+    currentRequestRequestType() {
+      return this.$store.state.apiDefinition.saveApiRequest.requestType
+    },
+    currentRequestReqParamInfo() {
+      return this.$store.state.apiDefinition.saveApiRequest.reqParamInfo
     }
   },
   watch: {
@@ -41,6 +51,18 @@ export default {
       },
       immediate: true,
       deep: true
+    },
+    currentRequestReqParamInfo: {
+      // 监听当前的请求内容，把参数表单内容回显
+      handler(newData) {
+        console.log('currentRequestRequestType', this.currentRequestRequestType)
+        // console.log('currentRequestReqParamInfo', this.currentRequestReqParamInfo.paramKeyValue)
+        if (this.currentRequestRequestType === 0) {
+          console.log('0')
+          this.dynamicForm.domains = this.currentRequestReqParamInfo.paramKeyValue
+        }
+      }
+      // immediate: true
     }
   },
   mounted() {

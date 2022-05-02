@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import { getApiListByModuleId } from '@/api/apiDefinition'
+import { getApiListByModuleId, getApiById } from '@/api/apiDefinition'
 
 export default {
   name: 'ApiListTable',
@@ -98,6 +98,14 @@ export default {
     },
     currentProjectId() {
       return this.$store.state.apiDefinition.currentProjectId
+    },
+    requestContent: {
+      get() {
+        return this.$store.state.apiDefinition.saveApiRequest
+      },
+      set(value) {
+        this.$store.state.apiDefinition.saveApiRequest = value
+      }
     }
   },
   watch: {
@@ -137,11 +145,19 @@ export default {
           this.total = response.data.total
         })
       this.listLoading = false
+    },
+    handleApiUpdate(row) {
+      // 根据接口id查询接口，将接口的返回内容赋给对话框
+      getApiById(row.id).then(response => {
+        const newObj = JSON.parse(response.data.reqParamInfo)
+        console.log('response:', response.data)
+        this.requestContent = { ...response.data, reqParamInfo: newObj }
+        console.log('requestContent', this.requestContent)
+      }
+      // 打开对话框
+      )
+      this.$store.commit('apiDefinition/CHANGE_DIALOG', 'update')
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>

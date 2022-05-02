@@ -111,12 +111,12 @@ export default {
         this.$bus.$emit('clear', true)
       })
     },
-    updateApi() {},
+    updateApi() {
+    },
     apiTestRun() {
       console.log('发送请求@@@', this.apiInfo)
       runTestApi()
     },
-    // 根据已填写的请求参数，赋值vuex里 requestType 对应值：0：query, 1: rest，2：body
     checkRequestType() {},
     checkRequestNull() {}
   }

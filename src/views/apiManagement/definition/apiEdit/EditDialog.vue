@@ -39,18 +39,20 @@ export default {
       }
     }
   },
+  watch: {
+    dialogVisible: {
+      // 当接口编辑页面关闭，初始化请求内容
+      handler() {
+        this.$store.commit('apiDefinition/INIT_SAVE_API_REQUEST')
+      },
+      immediate: true
+    }
+  },
   mounted() {
-    // 初始化查询第一个项目下的tree，接着初始化查询该项目下的默认节点全部接口
-
   },
   methods: {
     test() {
-      // console.log('state中的请求数据@@@', this.$store.state.apiDefinition.saveApiRequest)
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>
