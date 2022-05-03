@@ -5,18 +5,21 @@
       <el-tab-pane label="请求头" name="headers">
         <ParamType
           :current-tab-name="activeName"
+          :key-values="headerKeyValues"
           @getArgInfo="getArgInfo"
         />
       </el-tab-pane>
       <el-tab-pane label="QUERY参数" name="parameters">
         <ParamType
           :current-tab-name="activeName"
+          :key-values="paramKeyValues"
           @getArgInfo="getArgInfo"
         />
       </el-tab-pane>
       <el-tab-pane label="REST参数" name="rest">
         <ParamType
           :current-tab-name="activeName"
+          :key-values="restKeyValues"
           @getArgInfo="getArgInfo"
         />
       </el-tab-pane>
@@ -48,7 +51,17 @@ export default {
   components: { ParamType, vueJsonEditor },
   data() {
     return {
-      activeName: 'parameters'
+      activeName: 'parameters',
+      headerKeyValues: [],
+      paramKeyValues: [],
+      restKeyValues: [],
+      initForm: [
+        {
+          name: '',
+          value: '',
+          describe: ''
+        }
+      ]
     }
   },
   computed: {
@@ -59,6 +72,9 @@ export default {
       set(value) {
         this.$store.state.apiDefinition.saveApiRequest.reqParamInfo.body = value
       }
+    },
+    requestContent() {
+      return this.$store.state.apiDefinition.saveApiRequest
     },
     paramInfo() {
       return this.$store.state.apiDefinition.saveApiRequest.reqParamInfo
@@ -73,15 +89,15 @@ export default {
     }
   },
   watch: {
-    body: {
-      // 当body值变动进行判断，如果不为空，就把请求类型赋值为 2
+    requestContent: {
       handler() {
-        if (this.paramInfo.body !== undefined) {
-          this.$store.state.apiDefinition.saveApiRequest.requestType = 2
-        }
+        // 把请求体里的接口参数内容，传给子组件 ParamType
+        console.log('requestContent:', this.requestContent)
+        this.headerKeyValues = this.requestContent.headersKeyValue
+        this.paramKeyValues = this.requestContent.reqParamInfo.paramKeyValue
+        this.restKeyValues = this.requestContent.reqParamInfo.restKeyValue
       },
-      immediate: true,
-      deep: true
+      immediate: true
     }
   },
   methods: {
@@ -91,12 +107,15 @@ export default {
     getArgInfo(data, currentTabName) {
       // 收到子组件 ParamType 传来的数据，根据不同参数类型argType，赋值给 vuex里的state
       if (currentTabName === 'headers') {
-        this.headerInfo = JSON.stringify(data.domains)
+        // this.headerInfo = JSON.stringify(data.domains)
+        this.headerInfo = data.domains
       } else if (currentTabName === 'parameters') {
-        this.paramInfo.paramKeyValue = JSON.stringify(data.domains)
+        // this.paramInfo.paramKeyValue = JSON.stringify(data.domains)
+        this.paramInfo.paramKeyValue = data.domains
         this.$store.state.apiDefinition.saveApiRequest.requestType = 0
       } else if (currentTabName === 'rest') {
-        this.paramInfo.restKeyValue = JSON.stringify(data.domains)
+        // this.paramInfo.restKeyValue = JSON.stringify(data.domains)
+        this.paramInfo.restKeyValue = data.domains
         this.$store.state.apiDefinition.saveApiRequest.requestType = 1
       }
     }
