@@ -20,7 +20,7 @@
 <script>
 export default {
   name: 'ParamType',
-  props: ['currentTabName', 'keyValues'],
+  props: ['currentTabName'],
   data() {
     return {
       dynamicForm: {
@@ -34,6 +34,14 @@ export default {
       }
     }
   },
+  computed: {
+    currentRequestRequestType() {
+      return this.$store.state.apiDefinition.saveApiRequest.requestType
+    },
+    currentRequestReqParamInfo() {
+      return this.$store.state.apiDefinition.saveApiRequest.reqParamInfo
+    }
+  },
   watch: {
     // 深度监听
     dynamicForm: {
@@ -44,12 +52,17 @@ export default {
       immediate: true,
       deep: true
     },
-    keyValues: {
-      // 监听父组件传来的表达列表数据，用于回显
+    currentRequestReqParamInfo: {
+      // 监听当前的请求内容，把参数表单内容回显
       handler(newData) {
-        this.dynamicForm.domains = newData
-      },
-      immediate: true
+        console.log('currentRequestRequestType', this.currentRequestRequestType)
+        // console.log('currentRequestReqParamInfo', this.currentRequestReqParamInfo.paramKeyValue)
+        if (this.currentRequestRequestType === 0) {
+          console.log('0')
+          this.dynamicForm.domains = this.currentRequestReqParamInfo.paramKeyValue
+        }
+      }
+      // immediate: true
     }
   },
   mounted() {

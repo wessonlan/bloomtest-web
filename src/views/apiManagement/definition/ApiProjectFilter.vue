@@ -52,6 +52,8 @@ export default {
       // 把当前的项目id 放到 vuex中
       this.$store.state.apiDefinition.currentProjectId = this.projectValue
       getModuleList(this.projectValue).then(response => {
+        // 当前的项目id 放到vuex中请求信息中去
+        this.$store.state.apiDefinition.saveApiRequest.projectId = this.projectValue
         this.$emit('getModuleList', response.data)
         this.$store.commit('apiDefinition/GET_MODULE_LIST', response.data)
       })
