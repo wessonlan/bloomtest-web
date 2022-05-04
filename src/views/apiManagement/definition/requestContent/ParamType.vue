@@ -20,7 +20,7 @@
 <script>
 export default {
   name: 'ParamType',
-  props: ['currentTabName'],
+  props: ['currentTabName', 'currentData'],
   data() {
     return {
       dynamicForm: {
@@ -53,6 +53,7 @@ export default {
     }
   },
   mounted() {
+    console.log('param组件初始化拿到的传值：', this.currentData)
     this.$bus.$on('clear', (data) => {
       this.dynamicForm = {
         domains: [{

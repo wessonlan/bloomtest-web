@@ -5,18 +5,21 @@
       <el-tab-pane label="请求头" name="headers">
         <ParamType
           :current-tab-name="activeName"
+          :current-data="headers"
           @getArgInfo="getArgInfo"
         />
       </el-tab-pane>
       <el-tab-pane label="QUERY参数" name="parameters">
         <ParamType
           :current-tab-name="activeName"
+          :current-data="params"
           @getArgInfo="getArgInfo"
         />
       </el-tab-pane>
       <el-tab-pane label="REST参数" name="rest">
         <ParamType
           :current-tab-name="activeName"
+          :current-data="rest"
           @getArgInfo="getArgInfo"
         />
       </el-tab-pane>
@@ -48,7 +51,10 @@ export default {
   components: { ParamType, vueJsonEditor },
   data() {
     return {
-      activeName: 'parameters'
+      activeName: 'parameters',
+      headers: [],
+      params: [],
+      rest: []
     }
   },
   computed: {
@@ -70,9 +76,17 @@ export default {
       set(value) {
         this.$store.state.apiDefinition.saveApiRequest.headersKeyValue = value
       }
+    },
+    requestContent() {
+      // console.log('Base组件中，拿到的requestContent：', this.$store.state.apiDefinition.saveApiRequest)
+      return this.$store.state.apiDefinition.saveApiRequest
     }
   },
   watch: {
+    requestContent() {
+      console.log('Base组件中，拿到的requestContent：', this.$store.state.apiDefinition.saveApiRequest)
+      // 把监听到的数据传给ParamType组件
+    }
   },
   methods: {
     handleClick() {

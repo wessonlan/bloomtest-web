@@ -15,11 +15,11 @@ const state = {
     host: '',
     path: '',
     method: '',
-    headersKeyValue: '',
+    headersKeyValue: [],
     reqParamInfo: {
-      paramKeyValue: '',
-      restKeyValue: '',
-      body: ''
+      paramKeyValue: [],
+      restKeyValue: [],
+      body: {}
     },
     responseInfo: '',
     requestType: null
@@ -58,11 +58,11 @@ const mutations = {
       host: '',
       path: '',
       method: '',
-      headersKeyValue: '',
+      headersKeyValue: [],
       reqParamInfo: {
-        paramKeyValue: '',
-        restKeyValue: '',
-        body: ''
+        paramKeyValue: [],
+        restKeyValue: [],
+        body: {}
       },
       responseInfo: '',
       requestType: null

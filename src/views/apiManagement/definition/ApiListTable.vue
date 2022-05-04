@@ -149,10 +149,11 @@ export default {
     handleApiUpdate(row) {
       // 根据接口id查询接口，将接口的返回内容赋给对话框
       getApiById(row.id).then(response => {
-        const newObj = JSON.parse(response.data.reqParamInfo)
+        const reqParamInfoObj = JSON.parse(response.data.reqParamInfo)
         // console.log('response:', response.data)
-        this.requestContent = { ...response.data, reqParamInfo: newObj }
-        // console.log('requestContent', this.requestContent)
+        const headerInfoObj = JSON.parse(response.data.headersKeyValue)
+        this.requestContent = { ...response.data, reqParamInfo: reqParamInfoObj, headersKeyValue: headerInfoObj }
+        console.log('点击编辑按钮，此时的请求内容', this.requestContent)
       }
       // 打开对话框
       )
