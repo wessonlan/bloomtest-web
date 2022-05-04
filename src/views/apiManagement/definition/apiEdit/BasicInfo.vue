@@ -89,10 +89,14 @@ export default {
   methods: {
     handleChange() {},
     saveApi() {
-      console.log('当前createOrUpdateDialog的：', this.createOrUpdateDialog)
+      this.apiInfo.projectId = this.$store.state.apiDefinition.currentProjectId
       this.apiInfo.moduleId = this.apiInfo.moduleId[this.apiInfo.moduleId.length - 1]
+      this.apiInfo.headersKeyValue = JSON.stringify(this.apiInfo.headersKeyValue)
       this.apiInfo.reqParamInfo = JSON.stringify(this.apiInfo.reqParamInfo)
       this.apiInfo.responseInfo = JSON.stringify(this.apiInfo.responseInfo)
+      if (this.apiInfo.requestType === null) {
+        this.$store.state.apiDefinition.saveApiRequest.requestType = 2
+      }
       saveApiDefinition(this.apiInfo).then(response => {
         if (response.code === 20000) {
           this.$message({

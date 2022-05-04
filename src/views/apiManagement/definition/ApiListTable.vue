@@ -150,9 +150,9 @@ export default {
       // 根据接口id查询接口，将接口的返回内容赋给对话框
       getApiById(row.id).then(response => {
         const newObj = JSON.parse(response.data.reqParamInfo)
-        console.log('response:', response.data)
+        // console.log('response:', response.data)
         this.requestContent = { ...response.data, reqParamInfo: newObj }
-        console.log('requestContent', this.requestContent)
+        // console.log('requestContent', this.requestContent)
       }
       // 打开对话框
       )

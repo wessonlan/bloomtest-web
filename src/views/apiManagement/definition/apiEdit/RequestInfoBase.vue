@@ -73,16 +73,6 @@ export default {
     }
   },
   watch: {
-    body: {
-      // 当body值变动进行判断，如果不为空，就把请求类型赋值为 2
-      handler() {
-        if (this.paramInfo.body !== undefined) {
-          this.$store.state.apiDefinition.saveApiRequest.requestType = 2
-        }
-      },
-      immediate: true,
-      deep: true
-    }
   },
   methods: {
     handleClick() {
@@ -91,12 +81,12 @@ export default {
     getArgInfo(data, currentTabName) {
       // 收到子组件 ParamType 传来的数据，根据不同参数类型argType，赋值给 vuex里的state
       if (currentTabName === 'headers') {
-        this.headerInfo = JSON.stringify(data.domains)
+        this.headerInfo = data.domains
       } else if (currentTabName === 'parameters') {
-        this.paramInfo.paramKeyValue = JSON.stringify(data.domains)
+        this.paramInfo.paramKeyValue = data.domains
         this.$store.state.apiDefinition.saveApiRequest.requestType = 0
       } else if (currentTabName === 'rest') {
-        this.paramInfo.restKeyValue = JSON.stringify(data.domains)
+        this.paramInfo.restKeyValue = data.domains
         this.$store.state.apiDefinition.saveApiRequest.requestType = 1
       }
     }
