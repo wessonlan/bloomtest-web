@@ -40,7 +40,7 @@
             <el-button type="success" @click="apiTestRun">发送</el-button>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="createOrUpdateDialog==='create'?saveApi():updateApi()">保存</el-button>
+            <el-button type="primary" @click="saveApi()">保存</el-button>
           </el-form-item>
         </div>
       </div>
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { saveApiDefinition, runTestApi } from '@/api/apiDefinition'
+import { saveApiDefinition, updateApiDefinition, runTestApi } from '@/api/apiDefinition'
 
 export default {
   name: 'BasicInfo',
@@ -97,24 +97,34 @@ export default {
       if (this.apiInfo.requestType === null) {
         this.$store.state.apiDefinition.saveApiRequest.requestType = 2
       }
-      saveApiDefinition(this.apiInfo).then(response => {
-        if (response.code === 20000) {
-          this.$message({
-            message: '新增成功',
-            type: 'success',
-            duration: 2000
-          })
-        }
-        this.editDialogVisible = false
-        // 重新刷新列表，更新vuex里的 refreshApiList 字段 为true触发
-        this.$store.state.apiDefinition.refreshApiList = true
-        // 初始化请求对象
-        this.$store.commit('apiDefinition/INIT_SAVE_API_REQUEST')
-        // 这里是解决上面的方法无法初始化 ParamType组件里的v-model
-        this.$bus.$emit('clear', true)
-      })
-    },
-    updateApi() {
+      if (this.createOrUpdateDialog === 'create') {
+        saveApiDefinition(this.apiInfo).then(response => {
+          if (response.code === 20000) {
+            this.$message({
+              message: '新增成功',
+              type: 'success',
+              duration: 2000
+            })
+          }
+        })
+      } else {
+        updateApiDefinition(this.apiInfo).then(response => {
+          if (response.code === 20000) {
+            this.$message({
+              message: '修改成功',
+              type: 'success',
+              duration: 2000
+            })
+          }
+        })
+      }
+      this.editDialogVisible = false
+      // 重新刷新列表，更新vuex里的 refreshApiList 字段 为true触发
+      this.$store.state.apiDefinition.refreshApiList = true
+      // 初始化请求对象
+      this.$store.commit('apiDefinition/INIT_SAVE_API_REQUEST')
+      // 这里是解决上面的方法无法初始化 ParamType组件里的v-model
+      this.$bus.$emit('clear', true)
     },
     apiTestRun() {
       console.log('发送请求@@@', this.apiInfo)

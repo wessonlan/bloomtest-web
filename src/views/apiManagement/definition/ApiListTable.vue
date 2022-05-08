@@ -90,8 +90,13 @@ export default {
     }
   },
   computed: {
-    needRefreshList() {
-      return this.$store.state.apiDefinition.refreshApiList
+    needRefreshList: {
+      get() {
+        return this.$store.state.apiDefinition.refreshApiList
+      },
+      set(boolean) {
+        this.$store.state.apiDefinition.refreshApiList = boolean
+      }
     },
     currentNodeInfo() {
       return this.$store.state.apiDefinition.currentNode
@@ -118,6 +123,8 @@ export default {
           } else {
             this.getApiList(this.currentProjectId, 1, this.currentPage, this.size)
           }
+          // 刷新后，恢复字段的状态，否则后续不熟悉
+          this.needRefreshList = false
         }
       },
       immediate: true,

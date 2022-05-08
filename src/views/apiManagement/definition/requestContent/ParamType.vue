@@ -53,7 +53,6 @@ export default {
     },
     currentData: {
       handler(newData) {
-        console.log('ParamType组件中currentData:', newData)
         this.dynamicForm.domains = newData
       },
       immediate: true,

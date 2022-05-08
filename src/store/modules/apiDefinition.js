@@ -26,7 +26,7 @@ const apiRequest = {
     }],
     body: {}
   },
-  responseInfo: '',
+  responseInfo: {},
   requestType: null
 }
 
@@ -38,7 +38,36 @@ const state = {
   moduleTreeRelative: {
     moduleList: []
   },
-  saveApiRequest: apiRequest,
+  saveApiRequest: {
+    id: '',
+    name: '',
+    description: '',
+    moduleId: '',
+    projectId: '',
+    host: '',
+    path: '',
+    method: '',
+    headersKeyValue: [{
+      name: '',
+      value: '',
+      describe: ''
+    }],
+    reqParamInfo: {
+      paramKeyValue: [{
+        name: '',
+        value: '',
+        describe: ''
+      }],
+      restKeyValue: [{
+        name: '',
+        value: '',
+        describe: ''
+      }],
+      body: {}
+    },
+    responseInfo: {},
+    requestType: null
+  },
   refreshApiList: false,
   currentNode: {
     id: '',
@@ -60,7 +89,36 @@ const mutations = {
     state.moduleTreeRelative.moduleList = value
   },
   INIT_SAVE_API_REQUEST(state, value) {
-    state.saveApiRequest = apiRequest
+    state.saveApiRequest = {
+      id: '',
+      name: '',
+      description: '',
+      moduleId: '',
+      projectId: '',
+      host: '',
+      path: '',
+      method: '',
+      headersKeyValue: [{
+        name: '',
+        value: '',
+        describe: ''
+      }],
+      reqParamInfo: {
+        paramKeyValue: [{
+          name: '',
+          value: '',
+          describe: ''
+        }],
+        restKeyValue: [{
+          name: '',
+          value: '',
+          describe: ''
+        }],
+        body: {}
+      },
+      responseInfo: {},
+      requestType: null
+    }
   }
 }
 
