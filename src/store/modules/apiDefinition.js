@@ -1,3 +1,35 @@
+// api接口请求体
+const apiRequest = {
+  id: '',
+  name: '',
+  description: '',
+  moduleId: '',
+  projectId: '',
+  host: '',
+  path: '',
+  method: '',
+  headersKeyValue: [{
+    name: '',
+    value: '',
+    describe: ''
+  }],
+  reqParamInfo: {
+    paramKeyValue: [{
+      name: '',
+      value: '',
+      describe: ''
+    }],
+    restKeyValue: [{
+      name: '',
+      value: '',
+      describe: ''
+    }],
+    body: {}
+  },
+  responseInfo: '',
+  requestType: null
+}
+
 const state = {
   createApiRelative: {
     apiEditDialogVisible: false,
@@ -6,24 +38,7 @@ const state = {
   moduleTreeRelative: {
     moduleList: []
   },
-  saveApiRequest: {
-    id: '',
-    name: '',
-    description: '',
-    moduleId: '',
-    projectId: '',
-    host: '',
-    path: '',
-    method: '',
-    headersKeyValue: [],
-    reqParamInfo: {
-      paramKeyValue: [],
-      restKeyValue: [],
-      body: {}
-    },
-    responseInfo: '',
-    requestType: null
-  },
+  saveApiRequest: apiRequest,
   refreshApiList: false,
   currentNode: {
     id: '',
@@ -38,10 +53,6 @@ const actions = {
 
 const mutations = {
   CHANGE_DIALOG(state, value) {
-    // if (value === 'create') {
-    //   state.createApiRelative.apiEditDialogVisible = true
-    //   state.createApiRelative.apiDefinitionDialogStatus = value
-    // }
     state.createApiRelative.apiEditDialogVisible = true
     state.createApiRelative.apiDefinitionDialogStatus = value
   },
@@ -49,24 +60,7 @@ const mutations = {
     state.moduleTreeRelative.moduleList = value
   },
   INIT_SAVE_API_REQUEST(state, value) {
-    state.saveApiRequest = {
-      id: '',
-      name: '',
-      description: '',
-      moduleId: '',
-      projectId: '',
-      host: '',
-      path: '',
-      method: '',
-      headersKeyValue: [],
-      reqParamInfo: {
-        paramKeyValue: [],
-        restKeyValue: [],
-        body: {}
-      },
-      responseInfo: '',
-      requestType: null
-    }
+    state.saveApiRequest = apiRequest
   }
 }
 

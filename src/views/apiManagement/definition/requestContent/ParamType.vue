@@ -50,10 +50,18 @@ export default {
       },
       immediate: true,
       deep: true
+    },
+    currentData: {
+      handler(newData) {
+        console.log('ParamType组件中currentData:', newData)
+        this.dynamicForm.domains = newData
+      },
+      immediate: true,
+      deep: true
     }
   },
   mounted() {
-    console.log('param组件初始化拿到的传值：', this.currentData)
+    // console.log('param组件初始化拿到的传值：', this.currentData)
     this.$bus.$on('clear', (data) => {
       this.dynamicForm = {
         domains: [{

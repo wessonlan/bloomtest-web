@@ -19,7 +19,7 @@
       <el-tab-pane label="REST参数" name="rest">
         <ParamType
           :current-tab-name="activeName"
-          :current-data="rest"
+          :current-data="rests"
           @getArgInfo="getArgInfo"
         />
       </el-tab-pane>
@@ -52,9 +52,21 @@ export default {
   data() {
     return {
       activeName: 'parameters',
-      headers: [],
-      params: [],
-      rest: []
+      headers: [{
+        name: '',
+        value: '',
+        describe: ''
+      }],
+      params: [{
+        name: '',
+        value: '',
+        describe: ''
+      }],
+      rests: [{
+        name: '',
+        value: '',
+        describe: ''
+      }]
     }
   },
   computed: {
@@ -84,8 +96,10 @@ export default {
   },
   watch: {
     requestContent() {
-      console.log('Base组件中，拿到的requestContent：', this.$store.state.apiDefinition.saveApiRequest)
       // 把监听到的数据传给ParamType组件
+      this.headers = this.headerInfo
+      this.params = this.paramInfo.paramKeyValue
+      this.rests = this.paramInfo.restKeyValue
     }
   },
   methods: {
