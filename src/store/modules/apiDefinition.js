@@ -1,35 +1,3 @@
-// api接口请求体
-const apiRequest = {
-  id: '',
-  name: '',
-  description: '',
-  moduleId: '',
-  projectId: '',
-  host: '',
-  path: '',
-  method: '',
-  headersKeyValue: [{
-    name: '',
-    value: '',
-    describe: ''
-  }],
-  reqParamInfo: {
-    paramKeyValue: [{
-      name: '',
-      value: '',
-      describe: ''
-    }],
-    restKeyValue: [{
-      name: '',
-      value: '',
-      describe: ''
-    }],
-    body: {}
-  },
-  responseInfo: {},
-  requestType: null
-}
-
 const state = {
   createApiRelative: {
     apiEditDialogVisible: false,
@@ -89,6 +57,7 @@ const mutations = {
     state.moduleTreeRelative.moduleList = value
   },
   INIT_SAVE_API_REQUEST(state, value) {
+    console.log('INIT_SAVE_API_REQUEST 初始化请求对象')
     state.saveApiRequest = {
       id: '',
       name: '',

@@ -1,9 +1,9 @@
 <template>
   <!--动态增删表单-->
-  <el-form :model="dynamicForm" label-width="100px" class="demo-dynamic">
+  <el-form label-width="100px" class="demo-dynamic">
     <!--请求头动态部分-->
     <el-form-item
-      v-for="(domain) in dynamicForm.domains"
+      v-for="(domain) in paramKeyValues"
       :key="domain.key"
     >
       <span style="margin-left: -100px; margin-top: -200px">
@@ -19,8 +19,7 @@
 
 <script>
 export default {
-  name: 'ParamType',
-  props: ['currentTabName', 'currentData'],
+  name: 'RequestQueryParam',
   data() {
     return {
       dynamicForm: {
@@ -35,33 +34,27 @@ export default {
     }
   },
   computed: {
-    // currentRequestRequestType() {
-    //   return this.$store.state.apiDefinition.saveApiRequest.requestType
-    // },
-    // currentRequestReqParamInfo() {
-    //   return this.$store.state.apiDefinition.saveApiRequest.reqParamInfo
-    // }
+    paramKeyValues: {
+      get() {
+        return this.$store.state.apiDefinition.saveApiRequest.reqParamInfo.paramKeyValue
+      },
+      set(paramKeyValues) {
+        this.$store.state.apiDefinition.saveApiRequest.reqParamInfo.paramKeyValue = paramKeyValues
+      }
+    }
   },
   watch: {
     dynamicForm: {
       // 把表单里的数据发送给父组件
       handler(newData) {
-        // this.$emit('getArgInfo', newData, this.currentTabName)
-      },
-      immediate: true,
-      deep: true
-    },
-    currentData: {
-      handler(newData) {
-        // console.log('currentData:', this.currentData)
-        this.dynamicForm.domains = newData
+        // this.$emit('getArgInfo', newData)
+        this.paramKeyValues = newData.domains
       },
       immediate: true,
       deep: true
     }
   },
   mounted() {
-    // console.log('param组件初始化拿到的传值：', this.currentData)
     this.$bus.$on('clear', (data) => {
       this.dynamicForm = {
         domains: [{

@@ -27,7 +27,3 @@ export default {
   components: { JsonViewer }
 }
 </script>
-
-<style scoped>
-
-</style>

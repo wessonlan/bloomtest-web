@@ -179,10 +179,6 @@
           </el-form-item>
           <!--模块改造成级联选择器-->
           <el-form-item label="模块:">
-            <!--<el-select v-model="baseInfoForm.moduleId" placeholder="" value="">-->
-            <!--<el-option label="区域一" value="shanghai" />-->
-            <!--<el-option label="区域二" value="beijing" />-->
-            <!--</el-select>-->
             <el-cascader
               v-model="baseInfoForm.moduleId"
               :show-all-levels="false"

@@ -68,12 +68,12 @@ export const constantRoutes = [
         component: () => import('@/views/projectManagement/table'),
         meta: { title: '项目管理', icon: 'table' }
       },
-      {
-        path: 'apiManagement',
-        name: 'apiManagement',
-        component: () => import('@/views/apiManagement/moduleTreeTable'),
-        meta: { title: '接口定义', icon: 'tree' }
-      },
+      // {
+      //   path: 'apiManagement',
+      //   name: 'apiManagement',
+      //   component: () => import('@/views/apiManagement/moduleTreeTable'),
+      //   meta: { title: '接口定义', icon: 'tree' }
+      // },
       {
         path: 'apiManagementNew',
         name: 'apiManagementNew',

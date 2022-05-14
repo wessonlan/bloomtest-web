@@ -87,10 +87,11 @@ export default {
     }
   },
   methods: {
-    handleChange() {},
+    handleChange() {
+      console.log('变化了：apiInfo.moduleId', this.apiInfo.moduleId)
+    },
     saveApi() {
       this.apiInfo.projectId = this.$store.state.apiDefinition.currentProjectId
-      this.apiInfo.moduleId = this.apiInfo.moduleId[this.apiInfo.moduleId.length - 1]
       this.apiInfo.headersKeyValue = JSON.stringify(this.apiInfo.headersKeyValue)
       this.apiInfo.reqParamInfo = JSON.stringify(this.apiInfo.reqParamInfo)
       this.apiInfo.responseInfo = JSON.stringify(this.apiInfo.responseInfo)
@@ -98,6 +99,7 @@ export default {
         this.$store.state.apiDefinition.saveApiRequest.requestType = 2
       }
       if (this.createOrUpdateDialog === 'create') {
+        this.apiInfo.moduleId = this.apiInfo.moduleId[this.apiInfo.moduleId.length - 1]
         saveApiDefinition(this.apiInfo).then(response => {
           if (response.code === 20000) {
             this.$message({
@@ -124,11 +126,27 @@ export default {
       // 初始化请求对象
       this.$store.commit('apiDefinition/INIT_SAVE_API_REQUEST')
       // 这里是解决上面的方法无法初始化 ParamType组件里的v-model
-      this.$bus.$emit('clear', true)
+      // this.$bus.$emit('clear', true)
     },
     apiTestRun() {
-      console.log('发送请求@@@', this.apiInfo)
-      runTestApi()
+      const requestObj = { ...this.apiInfo }
+      // if (typeof requestObj.headersKeyValue !== 'string') {
+      requestObj.headersKeyValue = JSON.stringify(this.apiInfo.headersKeyValue)
+      // }
+      // if (typeof requestObj.reqParamInfo !== 'string') {
+      requestObj.reqParamInfo = JSON.stringify(this.apiInfo.reqParamInfo)
+      // }
+      // console.log('this.apiInfo.reqParamInfo:', this.apiInfo.reqParamInfo)
+      console.log('this.apiInfo:', this.apiInfo)
+      console.log('requestObj:', requestObj)
+      runTestApi(requestObj).then(response => {
+        this.responseJsonData = (response.data)
+        this.$message({
+          message: '发送成功',
+          type: 'success',
+          duration: 1000
+        })
+      })
     },
     checkRequestType() {},
     checkRequestNull() {}

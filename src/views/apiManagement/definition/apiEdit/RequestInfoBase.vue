@@ -3,25 +3,28 @@
     <el-divider content-position="left">请求参数</el-divider>
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane label="请求头" name="headers">
-        <ParamType
-          :current-tab-name="activeName"
-          :current-data="headers"
-          @getArgInfo="getArgInfo"
-        />
+        <!--<ParamType-->
+        <!--:current-tab-name="activeName"-->
+        <!--:current-data="headers"-->
+        <!--@getArgInfo="getArgInfo"-->
+        <!--/>-->
+        <RequestHeader />
       </el-tab-pane>
       <el-tab-pane label="QUERY参数" name="parameters">
-        <ParamType
-          :current-tab-name="activeName"
-          :current-data="params"
-          @getArgInfo="getArgInfo"
-        />
+        <!--<ParamType-->
+        <!--:current-tab-name="activeName"-->
+        <!--:current-data="params"-->
+        <!--@getArgInfo="getArgInfo"-->
+        <!--/>-->
+        <RequestQueryParam />
       </el-tab-pane>
       <el-tab-pane label="REST参数" name="rest">
-        <ParamType
-          :current-tab-name="activeName"
-          :current-data="rests"
-          @getArgInfo="getArgInfo"
-        />
+        <!--<ParamType-->
+        <!--:current-tab-name="activeName"-->
+        <!--:current-data="rests"-->
+        <!--@getArgInfo="getArgInfo"-->
+        <!--/>-->
+        <RequestRestParam />
       </el-tab-pane>
       <el-tab-pane label="请求体" name="body">
         <vue-json-editor
@@ -44,11 +47,14 @@
 
 <script>
 import ParamType from '../requestContent/ParamType'
+import RequestHeader from '../requestContent/RequestHeader'
+import RequestRestParam from '../requestContent/RequestRestParam'
 import vueJsonEditor from 'vue-json-editor'
+import RequestQueryParam from '../requestContent/RequestQueryParam'
 
 export default {
   name: 'RequestInfoBase',
-  components: { ParamType, vueJsonEditor },
+  components: { RequestQueryParam, ParamType, RequestHeader, RequestRestParam, vueJsonEditor },
   data() {
     return {
       activeName: 'parameters',
@@ -78,8 +84,13 @@ export default {
         this.$store.state.apiDefinition.saveApiRequest.reqParamInfo.body = value
       }
     },
-    paramInfo() {
-      return this.$store.state.apiDefinition.saveApiRequest.reqParamInfo
+    paramInfo: {
+      get() {
+        return this.$store.state.apiDefinition.saveApiRequest.reqParamInfo
+      },
+      set(value) {
+        this.$store.state.apiDefinition.saveApiRequest.reqParamInfo = value
+      }
     },
     headerInfo: {
       get() {
@@ -105,19 +116,25 @@ export default {
   methods: {
     handleClick() {
       // console.log('当前tabactiveName', this.activeName)
-    },
-    getArgInfo(data, currentTabName) {
-      // 收到子组件 ParamType 传来的数据，根据不同参数类型argType，赋值给 vuex里的state
-      if (currentTabName === 'headers') {
-        this.headerInfo = data.domains
-      } else if (currentTabName === 'parameters') {
-        this.paramInfo.paramKeyValue = data.domains
-        this.$store.state.apiDefinition.saveApiRequest.requestType = 0
-      } else if (currentTabName === 'rest') {
-        this.paramInfo.restKeyValue = data.domains
-        this.$store.state.apiDefinition.saveApiRequest.requestType = 1
-      }
     }
+    // getArgInfo(data, currentTabName) {
+    //   // console.log('getArgInfo被调用，data：', data)
+    //   // 收到子组件 ParamType 传来的数据，根据不同参数类型argType，赋值给 vuex里的state
+    //   if (currentTabName === 'headers') {
+    //     console.log('headers赋值：', data.domains)
+    //     this.headerInfo = data.domains
+    //   } else if (currentTabName === 'parameters') {
+    //     this.paramInfo.paramKeyValue = data.domains
+    //     console.log('paramKeyValue 赋值：', data.domains)
+    //     // console.log('data.domains:', data.domains)
+    //     // console.log('getArgInfo被调用,此时：', this.paramInfo)
+    //     this.$store.state.apiDefinition.saveApiRequest.requestType = 0
+    //   } else if (currentTabName === 'rest') {
+    //     console.log('rest 赋值：', data.domains)
+    //     this.paramInfo.restKeyValue = data.domains
+    //     this.$store.state.apiDefinition.saveApiRequest.requestType = 1
+    //   }
+    // }
   }
 }
 </script>
