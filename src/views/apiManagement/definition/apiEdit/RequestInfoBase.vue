@@ -28,7 +28,7 @@
       </el-tab-pane>
       <el-tab-pane label="请求体" name="body">
         <vue-json-editor
-          v-model="body"
+          v-model="requestBody"
           :mode="'code'"
         />
       </el-tab-pane>
@@ -46,7 +46,6 @@
 </template>
 
 <script>
-import ParamType from '../requestContent/ParamType'
 import RequestHeader from '../requestContent/RequestHeader'
 import RequestRestParam from '../requestContent/RequestRestParam'
 import vueJsonEditor from 'vue-json-editor'
@@ -54,29 +53,29 @@ import RequestQueryParam from '../requestContent/RequestQueryParam'
 
 export default {
   name: 'RequestInfoBase',
-  components: { RequestQueryParam, ParamType, RequestHeader, RequestRestParam, vueJsonEditor },
+  components: { RequestQueryParam, RequestHeader, RequestRestParam, vueJsonEditor },
   data() {
     return {
-      activeName: 'parameters',
-      headers: [{
-        name: '',
-        value: '',
-        describe: ''
-      }],
-      params: [{
-        name: '',
-        value: '',
-        describe: ''
-      }],
-      rests: [{
-        name: '',
-        value: '',
-        describe: ''
-      }]
+      activeName: 'parameters'
+      // headers: [{
+      //   name: '',
+      //   value: '',
+      //   describe: ''
+      // }],
+      // params: [{
+      //   name: '',
+      //   value: '',
+      //   describe: ''
+      // }],
+      // rests: [{
+      //   name: '',
+      //   value: '',
+      //   describe: ''
+      // }]
     }
   },
   computed: {
-    body: {
+    requestBody: {
       get() {
         return this.$store.state.apiDefinition.saveApiRequest.reqParamInfo.body
       },
@@ -99,20 +98,20 @@ export default {
       set(value) {
         this.$store.state.apiDefinition.saveApiRequest.headersKeyValue = value
       }
-    },
-    requestContent() {
-      // console.log('Base组件中，拿到的requestContent：', this.$store.state.apiDefinition.saveApiRequest)
-      return this.$store.state.apiDefinition.saveApiRequest
     }
+    // requestContent() {
+    //   // console.log('Base组件中，拿到的requestContent：', this.$store.state.apiDefinition.saveApiRequest)
+    //   return this.$store.state.apiDefinition.saveApiRequest
+    // }
   },
-  watch: {
-    requestContent() {
-      // 把监听到的数据传给ParamType组件
-      this.headers = this.headerInfo
-      this.params = this.paramInfo.paramKeyValue
-      this.rests = this.paramInfo.restKeyValue
-    }
-  },
+  // watch: {
+  //   requestContent() {
+  //     // 把监听到的数据传给ParamType组件
+  //     this.headers = this.headerInfo
+  //     this.params = this.paramInfo.paramKeyValue
+  //     this.rests = this.paramInfo.restKeyValue
+  //   }
+  // },
   methods: {
     handleClick() {
       // console.log('当前tabactiveName', this.activeName)

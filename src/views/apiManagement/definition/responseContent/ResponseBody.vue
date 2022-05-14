@@ -6,7 +6,7 @@
         <json-viewer
           expanded
           :expand-depth="5"
-          :value="$store.state.apiDefinition.saveApiRequest.responseInfo"
+          :value="responseInfo"
           copyable
           boxed
           sort
@@ -24,6 +24,16 @@ import JsonViewer from 'vue-json-viewer'
 
 export default {
   name: 'ResponseBody',
-  components: { JsonViewer }
+  components: { JsonViewer },
+  data() {
+    return {
+      responseBodyInfo: {}
+    }
+  },
+  computed: {
+    responseInfo() {
+      return this.$store.state.apiDefinition.saveApiRequest.responseInfo
+    }
+  }
 }
 </script>

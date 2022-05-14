@@ -95,9 +95,9 @@ export default {
       this.apiInfo.headersKeyValue = JSON.stringify(this.apiInfo.headersKeyValue)
       this.apiInfo.reqParamInfo = JSON.stringify(this.apiInfo.reqParamInfo)
       this.apiInfo.responseInfo = JSON.stringify(this.apiInfo.responseInfo)
-      if (this.apiInfo.requestType === null) {
-        this.$store.state.apiDefinition.saveApiRequest.requestType = 2
-      }
+      // if (this.apiInfo.requestType === null) {
+      //   this.$store.state.apiDefinition.saveApiRequest.requestType = 2
+      // }
       if (this.createOrUpdateDialog === 'create') {
         this.apiInfo.moduleId = this.apiInfo.moduleId[this.apiInfo.moduleId.length - 1]
         saveApiDefinition(this.apiInfo).then(response => {
@@ -130,17 +130,12 @@ export default {
     },
     apiTestRun() {
       const requestObj = { ...this.apiInfo }
-      // if (typeof requestObj.headersKeyValue !== 'string') {
       requestObj.headersKeyValue = JSON.stringify(this.apiInfo.headersKeyValue)
-      // }
-      // if (typeof requestObj.reqParamInfo !== 'string') {
       requestObj.reqParamInfo = JSON.stringify(this.apiInfo.reqParamInfo)
-      // }
-      // console.log('this.apiInfo.reqParamInfo:', this.apiInfo.reqParamInfo)
-      console.log('this.apiInfo:', this.apiInfo)
-      console.log('requestObj:', requestObj)
+      requestObj.responseInfo = JSON.stringify(this.apiInfo.responseInfo)
       runTestApi(requestObj).then(response => {
-        this.responseJsonData = (response.data)
+        this.$store.state.apiDefinition.saveApiRequest.responseInfo = JSON.parse(response.data)
+        console.log(this.$store.state.apiDefinition.saveApiRequest.responseInfo)
         this.$message({
           message: '发送成功',
           type: 'success',

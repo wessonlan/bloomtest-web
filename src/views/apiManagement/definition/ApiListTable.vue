@@ -160,9 +160,10 @@ export default {
       getApiById(row.id).then(response => {
         const reqParamInfoObj = JSON.parse(response.data.reqParamInfo)
         const headerInfoObj = JSON.parse(response.data.headersKeyValue)
-        // console.log('headerInfoObj', headerInfoObj)
-        this.requestContent = { ...response.data, reqParamInfo: reqParamInfoObj, headersKeyValue: headerInfoObj }
-        console.log('this.requestContent', this.requestContent)
+        const responseInfo = JSON.parse(response.data.responseInfo)
+        this.requestContent = { ...response.data, reqParamInfo: reqParamInfoObj, headersKeyValue: headerInfoObj,
+          responseInfo: responseInfo }
+        // console.log('this.requestContent', this.requestContent)
       }
       )
     }
