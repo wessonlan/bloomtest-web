@@ -154,8 +154,6 @@ export default {
       this.listLoading = false
     },
     handleApiUpdate(row) {
-      // 打开对话框
-      this.$store.commit('apiDefinition/CHANGE_DIALOG', 'update')
       // 根据接口id查询接口，将接口的返回内容赋给对话框
       getApiById(row.id).then(response => {
         const reqParamInfoObj = JSON.parse(response.data.reqParamInfo)
@@ -166,6 +164,8 @@ export default {
         // console.log('this.requestContent', this.requestContent)
       }
       )
+      // 打开对话框
+      this.$store.commit('apiDefinition/CHANGE_DIALOG', 'update')
     }
   }
 }

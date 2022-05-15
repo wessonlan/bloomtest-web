@@ -10,9 +10,6 @@
     <RequestInfoBase />
     <!--请求响应组件-->
     <ResponseInfoBase />
-
-    <!--测试按钮-->
-    <!--<el-button type="primary" size="small" style="margin-left: 10px" @click="test">test</el-button>-->
   </el-dialog>
 </template>
 

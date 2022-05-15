@@ -95,9 +95,6 @@ export default {
       this.apiInfo.headersKeyValue = JSON.stringify(this.apiInfo.headersKeyValue)
       this.apiInfo.reqParamInfo = JSON.stringify(this.apiInfo.reqParamInfo)
       this.apiInfo.responseInfo = JSON.stringify(this.apiInfo.responseInfo)
-      // if (this.apiInfo.requestType === null) {
-      //   this.$store.state.apiDefinition.saveApiRequest.requestType = 2
-      // }
       if (this.createOrUpdateDialog === 'create') {
         this.apiInfo.moduleId = this.apiInfo.moduleId[this.apiInfo.moduleId.length - 1]
         saveApiDefinition(this.apiInfo).then(response => {
@@ -125,8 +122,6 @@ export default {
       this.$store.state.apiDefinition.refreshApiList = true
       // 初始化请求对象
       this.$store.commit('apiDefinition/INIT_SAVE_API_REQUEST')
-      // 这里是解决上面的方法无法初始化 ParamType组件里的v-model
-      // this.$bus.$emit('clear', true)
     },
     apiTestRun() {
       const requestObj = { ...this.apiInfo }

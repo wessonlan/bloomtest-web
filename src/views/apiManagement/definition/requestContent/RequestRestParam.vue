@@ -22,15 +22,6 @@ export default {
   name: 'RequestRestParam',
   data() {
     return {
-      // dynamicForm: {
-      //   domains: [
-      //     {
-      //       name: '',
-      //       value: '',
-      //       describe: ''
-      //     }
-      //   ]
-      // }
     }
   },
   computed: {
@@ -53,17 +44,6 @@ export default {
       deep: true
     }
   },
-  // mounted() {
-  //   this.$bus.$on('clear', (data) => {
-  //     this.dynamicForm = {
-  //       domains: [{
-  //         name: '',
-  //         value: '',
-  //         describe: ''
-  //       }]
-  //     }
-  //   })
-  // },
   methods: {
     addDomain() {
       this.restKeyValues.push({
