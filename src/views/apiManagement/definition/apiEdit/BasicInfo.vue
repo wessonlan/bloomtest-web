@@ -31,10 +31,10 @@
             </el-select>
           </el-form-item>
           <el-form-item style="margin-left: -10%">
-            <el-input v-model="apiInfo.host" placeholder="Host" style="width: 150%" />
+            <el-input v-model="apiInfo.host" placeholder="host" style="width: 150%" />
           </el-form-item>
           <el-form-item style="margin-left: 8%">
-            <el-input v-model="apiInfo.path" placeholder="请输入接口的URL，如/api/demo/#{id}，其中id为路径参数" style="width: 200%" />
+            <el-input v-model="apiInfo.path" placeholder="输入接口path，如/api/demo/:id，其中id为路径参数" style="width: 200%" />
           </el-form-item>
           <el-form-item style="margin-left: 18%">
             <el-button type="success" @click="apiTestRun">发送</el-button>
@@ -137,9 +137,9 @@ export default {
         this.$store.state.apiDefinition.saveApiRequest.responseInfo = JSON.parse(response.data)
         console.log(this.$store.state.apiDefinition.saveApiRequest.responseInfo)
         this.$message({
-          message: '发送成功',
+          message: '发送请求成功',
           type: 'success',
-          duration: 1000
+          duration: 2000
         })
       })
     },

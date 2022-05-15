@@ -22,15 +22,15 @@ export default {
   name: 'RequestHeader',
   data() {
     return {
-      dynamicForm: {
-        domains: [
-          {
-            name: '',
-            value: '',
-            describe: ''
-          }
-        ]
-      }
+      // dynamicForm: {
+      //   domains: [
+      //     {
+      //       name: '',
+      //       value: '',
+      //       describe: ''
+      //     }
+      //   ]
+      // }
     }
   },
   computed: {
@@ -45,7 +45,6 @@ export default {
   },
   watch: {
     dynamicForm: {
-      // 把表单里的数据发送给父组件
       handler(newData) {
         this.headerInfo = newData.domains
       },
@@ -53,29 +52,29 @@ export default {
       deep: true
     }
   },
-  mounted() {
-    this.$bus.$on('clear', (data) => {
-      this.dynamicForm = {
-        domains: [{
-          name: '',
-          value: '',
-          describe: ''
-        }]
-      }
-    })
-  },
+  // mounted() {
+  //   this.$bus.$on('clear', (data) => {
+  //     this.dynamicForm = {
+  //       domains: [{
+  //         name: '',
+  //         value: '',
+  //         describe: ''
+  //       }]
+  //     }
+  //   })
+  // },
   methods: {
     addDomain() {
-      this.dynamicForm.domains.push({
+      this.headerInfo.push({
         name: '',
         value: '',
         describe: ''
       })
     },
     removeDomain(item) {
-      const index = this.dynamicForm.domains.indexOf(item)
+      const index = this.headerInfo.indexOf(item)
       if (index !== -1 && index !== 0) {
-        this.dynamicForm.domains.splice(index, 1)
+        this.headerInfo.splice(index, 1)
       }
     }
   }

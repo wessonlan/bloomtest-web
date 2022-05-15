@@ -22,15 +22,15 @@ export default {
   name: 'RequestQueryParam',
   data() {
     return {
-      dynamicForm: {
-        domains: [
-          {
-            name: '',
-            value: '',
-            describe: ''
-          }
-        ]
-      }
+      // dynamicForm: {
+      //   domains: [
+      //     {
+      //       name: '',
+      //       value: '',
+      //       describe: ''
+      //     }
+      //   ]
+      // }
     }
   },
   computed: {
@@ -45,38 +45,41 @@ export default {
   },
   watch: {
     dynamicForm: {
-      // 把表单里的数据发送给父组件
       handler(newData) {
-        // this.$emit('getArgInfo', newData)
         this.paramKeyValues = newData.domains
       },
       immediate: true,
       deep: true
     }
   },
-  mounted() {
-    this.$bus.$on('clear', (data) => {
-      this.dynamicForm = {
-        domains: [{
-          name: '',
-          value: '',
-          describe: ''
-        }]
-      }
-    })
-  },
+  // mounted() {
+  //   this.$bus.$on('clear', (data) => {
+  //     this.dynamicForm = {
+  //       domains: [{
+  //         name: '',
+  //         value: '',
+  //         describe: ''
+  //       }]
+  //     }
+  //   })
+  // },
   methods: {
     addDomain() {
-      this.dynamicForm.domains.push({
+      // this.dynamicForm.domains.push({
+      //   name: '',
+      //   value: '',
+      //   describe: ''
+      // })
+      this.paramKeyValues.push({
         name: '',
         value: '',
         describe: ''
       })
     },
     removeDomain(item) {
-      const index = this.dynamicForm.domains.indexOf(item)
+      const index = this.paramKeyValues.indexOf(item)
       if (index !== -1 && index !== 0) {
-        this.dynamicForm.domains.splice(index, 1)
+        this.paramKeyValues.splice(index, 1)
       }
     }
   }

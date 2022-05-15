@@ -3,7 +3,7 @@
   <el-form label-width="100px" class="demo-dynamic">
     <!--请求头动态部分-->
     <el-form-item
-      v-for="(domain) in restKeyValue"
+      v-for="(domain) in restKeyValues"
       :key="domain.key"
     >
       <span style="margin-left: -100px; margin-top: -200px">
@@ -22,19 +22,19 @@ export default {
   name: 'RequestRestParam',
   data() {
     return {
-      dynamicForm: {
-        domains: [
-          {
-            name: '',
-            value: '',
-            describe: ''
-          }
-        ]
-      }
+      // dynamicForm: {
+      //   domains: [
+      //     {
+      //       name: '',
+      //       value: '',
+      //       describe: ''
+      //     }
+      //   ]
+      // }
     }
   },
   computed: {
-    restKeyValue: {
+    restKeyValues: {
       get() {
         return this.$store.state.apiDefinition.saveApiRequest.reqParamInfo.restKeyValue
       },
@@ -47,35 +47,35 @@ export default {
     dynamicForm: {
       // 把表单里的数据发送给父组件
       handler(newData) {
-        this.$emit('getArgInfo', newData, this.currentTabName)
+        this.restKeyValues = newData.domains
       },
       immediate: true,
       deep: true
     }
   },
-  mounted() {
-    this.$bus.$on('clear', (data) => {
-      this.dynamicForm = {
-        domains: [{
-          name: '',
-          value: '',
-          describe: ''
-        }]
-      }
-    })
-  },
+  // mounted() {
+  //   this.$bus.$on('clear', (data) => {
+  //     this.dynamicForm = {
+  //       domains: [{
+  //         name: '',
+  //         value: '',
+  //         describe: ''
+  //       }]
+  //     }
+  //   })
+  // },
   methods: {
     addDomain() {
-      this.dynamicForm.domains.push({
+      this.restKeyValues.push({
         name: '',
         value: '',
         describe: ''
       })
     },
     removeDomain(item) {
-      const index = this.dynamicForm.domains.indexOf(item)
+      const index = this.restKeyValues.indexOf(item)
       if (index !== -1 && index !== 0) {
-        this.dynamicForm.domains.splice(index, 1)
+        this.restKeyValues.splice(index, 1)
       }
     }
   }
