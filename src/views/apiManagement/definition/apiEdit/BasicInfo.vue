@@ -94,7 +94,7 @@ export default {
       this.apiInfo.projectId = this.$store.state.apiDefinition.currentProjectId
       this.apiInfo.headersKeyValue = JSON.stringify(this.apiInfo.headersKeyValue)
       this.apiInfo.reqParamInfo = JSON.stringify(this.apiInfo.reqParamInfo)
-      this.apiInfo.responseInfo = JSON.stringify(this.apiInfo.responseInfo)
+      this.apiInfo.responseInfo = JSON.stringify({})
       if (this.createOrUpdateDialog === 'create') {
         this.apiInfo.moduleId = this.apiInfo.moduleId[this.apiInfo.moduleId.length - 1]
         saveApiDefinition(this.apiInfo).then(response => {
@@ -127,11 +127,13 @@ export default {
       const requestObj = { ...this.apiInfo }
       requestObj.headersKeyValue = JSON.stringify(this.apiInfo.headersKeyValue)
       requestObj.reqParamInfo = JSON.stringify(this.apiInfo.reqParamInfo)
-      requestObj.responseInfo = JSON.stringify(this.apiInfo.responseInfo)
+      // requestObj.responseInfo.body = JSON.stringify(this.apiInfo.responseInfo)
       runTestApi(requestObj).then(response => {
         if (response.code === 20000) {
           try {
-            this.$store.state.apiDefinition.saveApiRequest.responseInfo = JSON.parse(response.data)
+            this.$store.state.apiDefinition.responseInfo.respBody = JSON.parse(response.data.body)
+            this.$store.state.apiDefinition.responseInfo.respHeaders = response.data.responseHeaders
+            console.log(this.$store.state.apiDefinition.responseInfo.respHeaders[0])
             this.$message({
               message: '发送请求成功',
               type: 'success',

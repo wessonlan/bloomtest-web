@@ -43,6 +43,7 @@ export default {
         if (this.dialogVisible === false) {
           // 初始化请求对象
           this.$store.commit('apiDefinition/INIT_SAVE_API_REQUEST')
+          this.$store.commit('apiDefinition/INIT_RESPONSE_INFO')
           // 这里是解决上面的方法无法初始化 ParamType组件里的v-model
           // this.$bus.$emit('clear', true)
         }

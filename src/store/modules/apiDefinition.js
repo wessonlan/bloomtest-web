@@ -33,8 +33,11 @@ const state = {
       }],
       body: {}
     },
-    responseInfo: {},
     requestType: null
+  },
+  responseInfo: {
+    respBody: {},
+    respHeaders: []
   },
   refreshApiList: false,
   currentNode: {
@@ -56,8 +59,13 @@ const mutations = {
   GET_MODULE_LIST(state, value) {
     state.moduleTreeRelative.moduleList = value
   },
+  INIT_RESPONSE_INFO(state, value) {
+    state.responseInfo = {
+      respBody: {},
+      respHeaders: []
+    }
+  },
   INIT_SAVE_API_REQUEST(state, value) {
-    console.log('INIT_SAVE_API_REQUEST 初始化请求对象')
     state.saveApiRequest = {
       id: '',
       name: '',
@@ -85,7 +93,6 @@ const mutations = {
         }],
         body: {}
       },
-      responseInfo: {},
       requestType: null
     }
   }
