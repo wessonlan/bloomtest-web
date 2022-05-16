@@ -6,7 +6,7 @@
           <el-input v-model="filterText" placeholder="关键字过滤" style="margin-bottom:20px; width: 150px" />
           <el-button type="primary" size="small" style="margin-left: 10px" @click="handleApiAdd">创建接口</el-button>
         </div>
-          <!--模块树-->
+        <!--模块树-->
         <div class="custom-tree-container">
           <el-tree
             ref="tree"
@@ -45,7 +45,7 @@
         </div>
       </div>
     </el-aside>
-
+    <!--接口列表过滤-->
     <el-container>
       <el-header style="text-align: left; font-size: 12px; height: 40px">
         <div style="margin-top: 20px">
@@ -177,22 +177,18 @@
           <el-form-item label="描述:">
             <el-input v-model="baseInfoForm.description" placeholder="" />
           </el-form-item>
-            <!--模块改造成级联选择器-->
+          <!--模块改造成级联选择器-->
           <el-form-item label="模块:">
-            <!--<el-select v-model="baseInfoForm.moduleId" placeholder="" value="">-->
-              <!--<el-option label="区域一" value="shanghai" />-->
-              <!--<el-option label="区域二" value="beijing" />-->
-            <!--</el-select>-->
-              <el-cascader
-                      :show-all-levels="false"
-                      filterable
-                      placeholder="选择模块"
-                      clearable
-                      v-model="baseInfoForm.moduleId"
-                      :options="currentModuleList"
-                      :props="{ expandTrigger: 'hover', checkStrictly: true }"
-                      @change="handleChange">
-              </el-cascader>
+            <el-cascader
+              v-model="baseInfoForm.moduleId"
+              :show-all-levels="false"
+              filterable
+              placeholder="选择模块"
+              clearable
+              :options="currentModuleList"
+              :props="{ expandTrigger: 'hover', checkStrictly: true }"
+              @change="handleChange"
+            />
           </el-form-item>
         </el-form>
       </div>
@@ -242,6 +238,7 @@
                 </el-form-item>
               </el-form>
             </el-tab-pane>
+
             <el-tab-pane label="QUERY参数" name="queryParams">
               <el-form ref="queryDynamicForm" :model="queryDynamicForm" label-width="100px" class="demo-dynamic">
                 <!--QUERY参数动态部分-->
@@ -485,7 +482,7 @@ export default {
         this.saveApiRequest.moduleId = this.baseInfoForm.moduleId[this.baseInfoForm.moduleId.length - 1]
       } else {
         // 当是编辑页面，判断传进来的是否是数组，是的话 取最后一个赋值给 saveApiRequest.moduleId
-        if (typeof(this.baseInfoForm.moduleId) === 'object') {
+        if (typeof (this.baseInfoForm.moduleId) === 'object') {
           this.saveApiRequest.moduleId = this.baseInfoForm.moduleId[this.baseInfoForm.moduleId.length - 1]
         } else {
           this.saveApiRequest.moduleId = this.baseInfoForm.moduleId
@@ -573,7 +570,7 @@ export default {
         this.baseInfoForm.name = response.data.name
         this.baseInfoForm.description = response.data.description
         this.baseInfoForm.moduleId = response.data.moduleId
-        console.log("点完编辑后，此时表单里的 moduleId")
+        console.log('点完编辑后，此时表单里的 moduleId')
         console.log(this.baseInfoForm.moduleId)
         this.apiRequestInfoForm.method = response.data.method
         this.apiRequestInfoForm.host = response.data.host
