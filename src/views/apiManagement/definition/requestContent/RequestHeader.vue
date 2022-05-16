@@ -22,6 +22,15 @@ export default {
   name: 'RequestHeader',
   data() {
     return {
+      dynamicForm: {
+        domains: [
+          {
+            name: '',
+            value: '',
+            describe: ''
+          }
+        ]
+      }
     }
   },
   computed: {

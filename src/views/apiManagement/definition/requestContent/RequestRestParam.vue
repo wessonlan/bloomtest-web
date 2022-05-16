@@ -22,6 +22,15 @@ export default {
   name: 'RequestRestParam',
   data() {
     return {
+      dynamicForm: {
+        domains: [
+          {
+            name: '',
+            value: '',
+            describe: ''
+          }
+        ]
+      }
     }
   },
   computed: {

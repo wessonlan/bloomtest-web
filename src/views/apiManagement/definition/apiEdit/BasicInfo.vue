@@ -129,13 +129,20 @@ export default {
       requestObj.reqParamInfo = JSON.stringify(this.apiInfo.reqParamInfo)
       requestObj.responseInfo = JSON.stringify(this.apiInfo.responseInfo)
       runTestApi(requestObj).then(response => {
-        this.$store.state.apiDefinition.saveApiRequest.responseInfo = JSON.parse(response.data)
-        console.log(this.$store.state.apiDefinition.saveApiRequest.responseInfo)
-        this.$message({
-          message: '发送请求成功',
-          type: 'success',
-          duration: 2000
-        })
+        if (response.code === 20000) {
+          try {
+            this.$store.state.apiDefinition.saveApiRequest.responseInfo = JSON.parse(response.data)
+            this.$message({
+              message: '发送请求成功',
+              type: 'success',
+              duration: 2000
+            })
+          } catch (e) {
+            this.$message.error('接口返回内容错误')
+          }
+        } else {
+          this.$message.error('发送请求失败')
+        }
       })
     },
     checkRequestType() {},

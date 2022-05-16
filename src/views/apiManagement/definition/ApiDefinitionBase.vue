@@ -40,7 +40,6 @@ export default {
   // 组件名称
   name: 'ApiDefinitionBase',
   // 注册组件
-  // components: { JsonViewer, vueJsonEditor },
   components: { EditDialog, ModuleTree, ApiProjectFilter, ApiListTable },
   data() {
     return {
