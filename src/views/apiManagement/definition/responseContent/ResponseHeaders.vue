@@ -1,7 +1,7 @@
 <template>
   <el-card class="box-card">
-    <div v-for="o in 4" :key="o" class="text item">
-      {{ '列表内容 ' + o }}
+    <div v-for="(i, v) in headersObj" :key="v" class="text item">
+      {{ v + '：' + i }}
     </div>
   </el-card>
 </template>
@@ -11,7 +11,7 @@ export default {
   name: 'ResponseHeaders',
   data() {
     return {
-      headers: []
+      headersObj: {}
     }
   },
   computed: {
@@ -22,12 +22,7 @@ export default {
   watch: {
     respHeaders: {
       handler() {
-        for (const x in this.respHeaders[0]) {
-          const tempObj = {}
-          tempObj[x] = this.respHeaders[0][x][0]
-          this.headers.push(tempObj)
-        }
-        console.log(this.headers)
+        this.headersObj = this.respHeaders[0]
       },
       immediate: true,
       deep: true
