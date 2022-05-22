@@ -133,7 +133,6 @@ export default {
           try {
             this.$store.state.apiDefinition.responseInfo.respBody = JSON.parse(response.data.body)
             this.$store.state.apiDefinition.responseInfo.respHeaders = response.data.responseHeaders
-            console.log(this.$store.state.apiDefinition.responseInfo.respHeaders[0])
             this.$message({
               message: '发送请求成功',
               type: 'success',

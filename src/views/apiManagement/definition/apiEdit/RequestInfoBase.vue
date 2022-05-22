@@ -24,7 +24,7 @@
         待开发
       </el-tab-pane>
       <el-tab-pane label="断言规则" name="assert">
-        待开发
+        <ApiAssertions :assertions="assertions" />
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -35,13 +35,25 @@ import RequestHeader from '../requestContent/RequestHeader'
 import RequestRestParam from '../requestContent/RequestRestParam'
 import vueJsonEditor from 'vue-json-editor'
 import RequestQueryParam from '../requestContent/RequestQueryParam'
+import ApiAssertions from '../assertion/ApiAssertions'
 
 export default {
   name: 'RequestInfoBase',
-  components: { RequestQueryParam, RequestHeader, RequestRestParam, vueJsonEditor },
+  components: { RequestQueryParam, RequestHeader, RequestRestParam, vueJsonEditor, ApiAssertions },
+  props: {
+    // assertions: {
+    //   type: Object,
+    //   default: () => {
+    //     return {}
+    //   }
+    // }
+  },
   data() {
     return {
-      activeName: 'parameters'
+      activeName: 'parameters',
+      assertions: {
+        jsonPath: []
+      }
     }
   },
   computed: {
