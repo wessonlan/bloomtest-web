@@ -67,5 +67,16 @@ export default {
 </script>
 
 <style scoped>
+    .assertion-item-editing {
+        padding-left: 10px;
+        margin-top: 10px;
+    }
 
+    .assertion-item-editing.json_path {
+        border-left: 2px solid #44B3D2;
+    }
+
+    .regex-item {
+        margin-top: 10px;
+    }
 </style>

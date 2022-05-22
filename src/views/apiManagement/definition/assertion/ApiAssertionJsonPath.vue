@@ -96,6 +96,7 @@ export default {
     add: function() {
       this.list.push(this.getJSONPath())
       this.callback()
+      console.log('jsonPath:', this.jsonPath)
     },
     remove: function() {
       this.list.splice(this.index, 1)
@@ -119,5 +120,8 @@ export default {
 </script>
 
 <style scoped>
-
+    .assertion-btn {
+        text-align: center;
+        width: 60px;
+    }
 </style>

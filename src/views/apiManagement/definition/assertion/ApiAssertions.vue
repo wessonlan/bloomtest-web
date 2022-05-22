@@ -112,5 +112,22 @@ export default {
 </script>
 
 <style scoped>
+    .assertion-item {
+        width: 100%;
+    }
 
+    .assertion-add {
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 5px;
+        border: #DCDFE6 solid 1px;
+    }
+
+    .icon.is-active {
+        transform: rotate(90deg);
+    }
+
+    /deep/ .el-card__body {
+        padding: 6px 10px;
+    }
 </style>
