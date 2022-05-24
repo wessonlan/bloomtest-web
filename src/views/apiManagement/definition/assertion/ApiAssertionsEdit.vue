@@ -30,7 +30,6 @@ export default {
         return {}
       }
     },
-    reloadData: String,
     isReadOnly: {
       type: Boolean,
       default: false
@@ -42,10 +41,6 @@ export default {
     }
   },
   computed: {
-    // isShow() {
-    //   const rt = this.assertions.duration
-    //   return rt.value !== undefined && rt.value !== 0
-    // }
   },
   watch: {
     reloadData() {
@@ -53,7 +48,6 @@ export default {
     }
   },
   mounted() {
-    console.log('edit组件', this.assertions.jsonPath)
   },
   methods: {
     reload() {
@@ -73,7 +67,7 @@ export default {
     }
 
     .assertion-item-editing.json_path {
-        border-left: 2px solid #44B3D2;
+        border-left: 2px solid #1dc7d2;
     }
 
     .regex-item {

@@ -35,6 +35,9 @@
         </el-tooltip>
       </el-col>
       <el-col class="assertion-btn" style="width: 30%">
+        <el-tooltip v-if="edit" content="启用/禁用" placement="top">
+          <el-switch v-model="jsonPath.enable" class="enable-switch" size="mini" :disabled="isReadOnly" style="width: 30px;margin-right: 10px" />
+        </el-tooltip>
         <el-button v-if="edit" :disabled="isReadOnly" type="danger" size="mini" icon="el-icon-delete" circle @click="remove" />
         <el-button v-else :disabled="isReadOnly" type="primary" size="small" @click="add">
           添加
@@ -95,8 +98,8 @@ export default {
   methods: {
     add: function() {
       this.list.push(this.getJSONPath())
+      console.log('this.list:', this.list)
       this.callback()
-      console.log('jsonPath:', this.jsonPath)
     },
     remove: function() {
       this.list.splice(this.index, 1)
@@ -122,6 +125,6 @@ export default {
 <style scoped>
     .assertion-btn {
         text-align: center;
-        width: 60px;
+        width: 80px;
     }
 </style>

@@ -38,7 +38,7 @@
 <script>
 import ApiAssertionsEdit from '@/views/apiManagement/definition/assertion/ApiAssertionsEdit'
 import ApiAssertionJsonPath from '@/views/apiManagement/definition/assertion/ApiAssertionJsonPath'
-import { ASSERTION_TYPE, JSONPath } from '@/model/ApiTestModel'
+import { ASSERTION_TYPE } from '@/model/ApiTestModel'
 import { v4 as uuidv4 } from 'uuid'
 
 export default {
@@ -62,13 +62,6 @@ export default {
       default: () => {
         return {}
       }
-    },
-    node: {},
-    request: {},
-    response: {},
-    customizeStyle: {
-      type: String,
-      default: 'margin-top: 10px'
     },
     isReadOnly: {
       type: Boolean,
@@ -121,13 +114,5 @@ export default {
         margin: 5px 0;
         border-radius: 5px;
         border: #DCDFE6 solid 1px;
-    }
-
-    .icon.is-active {
-        transform: rotate(90deg);
-    }
-
-    /deep/ .el-card__body {
-        padding: 6px 10px;
     }
 </style>
