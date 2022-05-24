@@ -5,18 +5,19 @@
         <el-col :span="4">
           <el-select
             v-model="type"
-            :disabled="isReadOnly"
             class="assertion-item"
             placeholder="选择类型"
             size="small"
+            value=""
           >
-            <el-option :label="'JSONPath'" :value="options.JSON_PATH" />
+            <el-option label="JSONPath" :value="options.JSON_PATH" />
+            <el-option label="文本" :value="options.TEXT" />
+            <el-option label="响应时长" :value="options.DURATION" />
           </el-select>
         </el-col>
         <el-col :span="20">
           <ApiAssertionJsonPath
             v-if="type === options.JSON_PATH"
-            :is-read-only="isReadOnly"
             :list="assertions.jsonPath"
             :callback="after"
           />
@@ -27,7 +28,6 @@
       </el-row>
     </div>
     <ApiAssertionsEdit
-      :is-read-only="isReadOnly"
       :assertions="assertions"
       :reload-data="reloadData"
       style="margin-bottom: 20px"
@@ -45,60 +45,30 @@ export default {
   name: 'ApiAssertions',
   components: { ApiAssertionsEdit, ApiAssertionJsonPath },
   props: {
-    draggable: {
-      type: Boolean,
-      default: false
-    },
-    isMax: {
-      type: Boolean,
-      default: false
-    },
-    showBtn: {
-      type: Boolean,
-      default: true
-    },
     assertions: {
       type: Object,
       default: () => {
         return {}
       }
-    },
-    isReadOnly: {
-      type: Boolean,
-      default: false
     }
   },
   data() {
     return {
       options: ASSERTION_TYPE,
-      time: '',
       type: '',
-      loading: false,
       reloadData: ''
+    }
+  },
+  watch: {
+    type() {
+      console.log('this.type:', this.type)
     }
   },
   methods: {
     after() {
       this.type = ''
-      // this.reloadData = getUUID().substring(0, 8)
       this.reloadData = uuidv4()
-      this.reload()
-    },
-    copyRow() {
-      this.$emit('copyRow', this.assertions, this.node)
-    },
-    reload() {
-      this.loading = true
-      this.$nextTick(() => {
-        this.loading = false
-      })
-    },
-    active() {
-      this.assertions.active = !this.assertions.active
-      this.reload()
-    },
-    remove() {
-      this.$emit('remove', this.assertions, this.node)
+      console.log('回调了after，this.reloadData', this.reloadData)
     }
   }
 }

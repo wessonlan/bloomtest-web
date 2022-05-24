@@ -4,7 +4,6 @@
       <el-col>
         <el-input
           v-model="jsonPath.expression"
-          :disabled="isReadOnly"
           maxlength="200"
           size="small"
           show-word-limit
@@ -23,7 +22,6 @@
         </el-select>
         <el-input
           v-model="jsonPath.expect"
-          :disabled="isReadOnly"
           size="small"
           show-word-limit
           placeholder="预期值"
@@ -36,10 +34,10 @@
       </el-col>
       <el-col class="assertion-btn" style="width: 30%">
         <el-tooltip v-if="edit" content="启用/禁用" placement="top">
-          <el-switch v-model="jsonPath.enable" class="enable-switch" size="mini" :disabled="isReadOnly" style="width: 30px;margin-right: 10px" />
+          <el-switch v-model="jsonPath.enable" class="enable-switch" size="mini" style="width: 30px;margin-right: 10px" />
         </el-tooltip>
-        <el-button v-if="edit" :disabled="isReadOnly" type="danger" size="mini" icon="el-icon-delete" circle @click="remove" />
-        <el-button v-else :disabled="isReadOnly" type="primary" size="small" @click="add">
+        <el-button v-if="edit" type="danger" size="mini" icon="el-icon-delete" circle @click="remove" />
+        <el-button v-else type="primary" size="small" @click="add">
           添加
         </el-button>
       </el-col>
@@ -48,7 +46,7 @@
 </template>
 
 <script>
-import { JSONPath } from '@/model/ApiTestModel'
+import { ASSERTION_TYPE } from '@/model/ApiTestModel'
 
 export default {
   name: 'ApiAssertionJsonPath',
@@ -56,7 +54,13 @@ export default {
     jsonPath: {
       type: Object,
       default: () => {
-        return new JSONPath()
+        return {
+          type: ASSERTION_TYPE.JSON_PATH,
+          expression: undefined,
+          expect: undefined,
+          description: undefined,
+          enable: true
+        }
       }
     },
     edit: {
@@ -76,10 +80,6 @@ export default {
     callback: {
       type: Function,
       default: function() {}
-    },
-    isReadOnly: {
-      type: Boolean,
-      default: false
     }
   },
   data() {
@@ -96,18 +96,17 @@ export default {
     }
   },
   methods: {
-    add: function() {
+    add() {
       this.list.push(this.getJSONPath())
       console.log('this.list:', this.list)
       this.callback()
     },
-    remove: function() {
+    remove() {
       this.list.splice(this.index, 1)
     },
     getJSONPath() {
-      const jsonPath = new JSONPath(this.jsonPath)
-      jsonPath.description = jsonPath.expression + ' expect: ' + (jsonPath.expect ? jsonPath.expect : '')
-      return jsonPath
+      this.jsonPath.description = this.jsonPath.expression + ' expect: ' + (this.jsonPath.expect ? this.jsonPath.expect : '')
+      return this.jsonPath
     },
     reload() {
       this.loading = true

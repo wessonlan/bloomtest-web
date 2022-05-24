@@ -1,12 +1,11 @@
 <template>
-  <div v-loading="loading">
+  <div>
     <div v-if="assertions.jsonPath.length > 0" class="assertion-item-editing json_path">
       <div>
         {{ 'JSONPath' }}
       </div>
       <div v-for="(jsonPath, index) in assertions.jsonPath" :key="index" class="regex-item">
         <ApiAssertionJsonPath
-          :is-read-only="isReadOnly"
           :list="assertions.jsonPath"
           :json-path="jsonPath"
           :edit="true"
@@ -29,33 +28,10 @@ export default {
       default: () => {
         return {}
       }
-    },
-    isReadOnly: {
-      type: Boolean,
-      default: false
     }
   },
   data() {
-    return {
-      loading: false
-    }
-  },
-  computed: {
-  },
-  watch: {
-    reloadData() {
-      this.reload()
-    }
-  },
-  mounted() {
-  },
-  methods: {
-    reload() {
-      this.loading = true
-      this.$nextTick(() => {
-        this.loading = false
-      })
-    }
+    return {}
   }
 }
 </script>

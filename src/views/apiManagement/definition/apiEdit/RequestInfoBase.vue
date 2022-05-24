@@ -41,12 +41,6 @@ export default {
   name: 'RequestInfoBase',
   components: { RequestQueryParam, RequestHeader, RequestRestParam, vueJsonEditor, ApiAssertions },
   props: {
-    // assertions: {
-    //   type: Object,
-    //   default: () => {
-    //     return {}
-    //   }
-    // }
   },
   data() {
     return {
