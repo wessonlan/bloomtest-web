@@ -57,6 +57,7 @@ export default {
         return {
           type: ASSERTION_TYPE.JSON_PATH,
           expression: undefined,
+          option: undefined,
           expect: undefined,
           description: undefined,
           enable: true
@@ -98,7 +99,7 @@ export default {
   methods: {
     add() {
       this.list.push(this.getJSONPath())
-      console.log('this.list:', this.list)
+      // console.log('this.list:', this.list)
       this.callback()
     },
     remove() {

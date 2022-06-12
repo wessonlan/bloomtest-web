@@ -29,7 +29,6 @@
     </div>
     <ApiAssertionsEdit
       :assertions="assertions"
-      :reload-data="reloadData"
       style="margin-bottom: 20px"
     />
   </div>
@@ -59,16 +58,27 @@ export default {
       reloadData: ''
     }
   },
+  computed: {
+    // assertions: {
+    //   get() {
+    //     return this.$store.state.apiDefinition.saveApiRequest.reqParamInfo.assertions
+    //   },
+    //   set(value) {
+    //     this.$store.state.apiDefinition.saveApiRequest.reqParamInfo.assertions = value
+    //   }
+    // }
+  },
   watch: {
     type() {
-      console.log('this.type:', this.type)
+      // console.log('this.type:', this.type)
     }
+  },
+  mounted() {
+    // console.log('ApiAssertions组件this.assertions', this.assertions)
   },
   methods: {
     after() {
       this.type = ''
-      this.reloadData = uuidv4()
-      console.log('回调了after，this.reloadData', this.reloadData)
     }
   }
 }

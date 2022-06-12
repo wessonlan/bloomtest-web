@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="assertions.jsonPath.length > 0" class="assertion-item-editing json_path">
+    <div v-if="isJsonPaths" class="assertion-item-editing json_path">
       <div>
         {{ 'JSONPath' }}
       </div>
@@ -32,6 +32,19 @@ export default {
   },
   data() {
     return {}
+  },
+  computed: {
+    isJsonPaths() {
+      try {
+        const n = this.assertions.jsonPath.length
+        return n > 0
+      } catch (e) {
+        return false
+      }
+    }
+  },
+  mounted() {
+    // console.log('ApiAssertionsEdit组件this.assertions', this.assertions)
   }
 }
 </script>

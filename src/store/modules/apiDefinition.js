@@ -31,9 +31,11 @@ const state = {
         value: '',
         describe: ''
       }],
-      body: {}
-    },
-    requestType: null
+      body: {},
+      assertions: {
+        jsonPath: []
+      }
+    }
   },
   responseInfo: {
     respBody: {},
@@ -91,9 +93,11 @@ const mutations = {
           value: '',
           describe: ''
         }],
-        body: {}
-      },
-      requestType: null
+        body: {},
+        assertions: {
+          jsonPath: []
+        }
+      }
     }
   }
 }

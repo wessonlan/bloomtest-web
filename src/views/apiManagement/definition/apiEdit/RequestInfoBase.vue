@@ -51,6 +51,14 @@ export default {
     }
   },
   computed: {
+    storeAssertions: {
+      get() {
+        return this.$store.state.apiDefinition.saveApiRequest.reqParamInfo.assertions
+      },
+      set(value) {
+        this.$store.state.apiDefinition.saveApiRequest.reqParamInfo.assertions = value
+      }
+    },
     requestBody: {
       get() {
         return this.$store.state.apiDefinition.saveApiRequest.reqParamInfo.body
@@ -75,6 +83,20 @@ export default {
         this.$store.state.apiDefinition.saveApiRequest.headersKeyValue = value
       }
     }
+  },
+  watch: {
+    assertions: {
+      handler(newData) {
+        // 把值付给store里的变量
+        this.storeAssertions = this.assertions
+      },
+      immediate: true,
+      deep: true
+    }
+  },
+  mounted() {
+    // console.log('RequestInfoBase 组件this.assertions', this.assertions)
+    // console.log('paramInfo:', this.paramInfo)
   },
   methods: {
     handleClick() {
