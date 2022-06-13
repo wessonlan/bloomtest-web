@@ -87,8 +87,14 @@ export default {
   watch: {
     assertions: {
       handler(newData) {
-        // 把值付给store里的变量
         this.storeAssertions = this.assertions
+      },
+      immediate: true,
+      deep: true
+    },
+    storeAssertions: {
+      handler(newData) {
+        this.assertions = this.storeAssertions
       },
       immediate: true,
       deep: true

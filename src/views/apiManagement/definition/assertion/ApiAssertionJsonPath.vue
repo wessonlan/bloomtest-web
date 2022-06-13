@@ -101,6 +101,7 @@ export default {
       this.list.push(this.getJSONPath())
       // console.log('this.list:', this.list)
       this.callback()
+      // console.log('request:', this.$store.state.apiDefinition.saveApiRequest)
     },
     remove() {
       this.list.splice(this.index, 1)
